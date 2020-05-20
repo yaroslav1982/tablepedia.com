@@ -1,0 +1,1020 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+	<title>tablepedia.com #csv2svg</title>
+<style>
+HTML { border-left: 2em solid #909090; padding: 2em; }
+BODY { line-height: 1.3; margin: 0; background-color: #FFFFFF; color: #000000; padding-right:2em; }
+P { margin-top: 0; text-align: justify; }
+H1 { font: x-large Verdana, sans-serif; text-align: center; letter-spacing: -0.09em; color: #000000; }
+H2 { border-bottom: thin solid #909090; font: normal 1.3em Georgia, serif; }g
+H2 ~ *:not(H2){margin-left:1.5em;}
+H3 { color: #000000; font: medium sans-serif; }
+H3 SPAN { background-color: #E0E0E0; border-right: thin solid #000000; border-bottom: thin solid #000000; padding-right: 0.5ex; }
+H3 EM { color: #000000; font-style: normal; }
+A:link { color: #333333; }
+A:visited { color: #333333; }
+A:active { color: #999999; }
+</style>
+</head>
+<body bgcolor="white" text="black" onload="ChangeSign();PLOTbuild()">
+<center>
+
+<!-- Yandex.Metrika counter -->
+	<script type="text/javascript">
+		(function (d, w, c) {
+			(w[c] = w[c] || []).push(function() {
+				try {
+					w.yaCounter42436314 = new Ya.Metrika({
+						id:42436314,
+						clickmap:true,
+						trackLinks:true,
+						accurateTrackBounce:true
+					});
+				} catch(e) { }
+			});
+
+			var n = d.getElementsByTagName("script")[0],
+			s = d.createElement("script"),
+			f = function () { n.parentNode.insertBefore(s, n); };
+			s.type = "text/javascript";
+			s.async = true;
+			s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+			if (w.opera == "[object Opera]") {
+				d.addEventListener("DOMContentLoaded", f, false);
+			} else { f(); }
+		})(document, window, "yandex_metrika_callbacks");
+	</script>
+	<noscript><div><img src="https://mc.yandex.ru/watch/42436314" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+<table  cellpadding="7">
+<tr  align="center" valign="top">
+<td>
+<a href="http://tablepedia.com/index_ru.html">
+<h1>tablepedia.com</h1>
+<img src="tablepedia.png" alt="PNG">
+<br>
+http://tablepedia.com
+</a>
+</td>
+<td><br>
+
+<h3>
+<span>
+<a href="metal_prices-rub.html">Цены на золото, серебро, платину и палладий с 1999 года (в рублях за грамм и долларах за унцию),
+а также курсы доллара и евро по курсу ЦБ РФ.</a>
+<br>
+<a href="demographics.html">Население Китая, Индии, США, России и др. с 1980 г.</a>
+<br>
+<a href="metal_prices.html">Стоимость золота, серебра, платины и палладия в долларах за унцию (USD/OZ) с 1900 г.</a>
+</span>
+</h3>
+
+</td>
+<td>
+<br>
+<a href="old.html">English version</a>
+<br>
+<a href="https://github.com/yaroslav1982/tablepedia">Download this site (ZIP)</a> 
+</td>
+</tr>
+</table>
+
+
+
+</center>
+
+
+<script>
+var XYf = 0;                        
+var rangesOfColumnMinAndMax = ''; 
+var a=1;
+var b=138;  
+
+function PLOTbuild()
+{	rangesOfColumnMinAndMax = '';
+	var s = document.getElementById("target").value;
+	var arrayOfTableStrings = s.split("\n");
+	var STRINGelements = arrayOfTableStrings[0].split("\t");
+	var midC = 0;
+	var minC = 0;
+	var maxC = 0;
+//2020 - 20 not 10 values
+	for (var k = 0; k < 22; k++) 
+	{
+		midC=parseFloat(STRINGelements[k]);
+		maxC = midC;
+		minC = maxC;
+		//for (var i = 1; i < arrayOfTableStrings.length - 1; i++)
+		for (var i = a; i < b; i++)
+		{
+			STRINGelements = arrayOfTableStrings[i].split("\t");
+			midC = parseFloat(STRINGelements[k]);
+			if (maxC < midC) 
+				maxC = midC;
+			if (minC > midC) 
+				minC = midC;
+		}
+		rangesOfColumnMinAndMax = rangesOfColumnMinAndMax + minC.toString()+";"+maxC.toString() + ";;   ";
+	}
+	var widthOfVisualization = '700'; var heightOfvisualization = '420'; //ширина и высота виртуального листа бумаги, на котором рисуются графики
+	var ab = document.getElementById('temptext').value; //tableOfPlotParameters
+	var STRINGelements = ab.split("\n");
+	var fourstr=['','','','',''];
+	for (var kstr = 0; kstr < 4; kstr++)
+	{
+		if (STRINGelements.length > kstr && STRINGelements[kstr].length > 5)
+		{
+		var t0 = STRINGelements[kstr].split(" ");
+		fourstr[kstr]=SVGgenerate(t0[0], t0[1], t0[2], t0[3], t0[4], t0[5], t0[6], t0[7], t0[8]);
+		}
+
+		if (STRINGelements.length < (kstr+2)) fourstr[kstr] = '';
+	}
+	var s0 = "<svg version='1.1' width='" + widthOfVisualization + "' height='" + heightOfvisualization + "' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>";
+
+var s09=document.getElementById('memo9').value;
+
+	document.getElementById('inputTextToSave').value = s0 + fourstr[0] + "\n" + fourstr[1] + "\n" + fourstr[2] + "\n" + fourstr[3] + "\n" + s09 + "\n" + "</svg>";
+	document.getElementById('boldStuff').innerHTML = document.getElementById('inputTextToSave').value;
+}
+
+function SVGgenerate(xcol, ycol, xA4, yA4, yLeft, xDown, xColor, Xis1, Yis1)
+{
+
+
+	var TEXTscaleSTRINGelements = ['0.1', '4'];  // Строка из таблицы, разделённая на элементы 
+	var colNames=["","США-з", "США-с", "Россия-з", "Россия-с", "Франция-з", "Франция-с", "Испания-з", "Испания-с", "Италия-з", "Италия-с", "","Германия-з", "Германия-с", "Турция-з", "Турция-с", "Иран-з", "Иран-с", "Китай-з", "Китай-с", "Великобритания-з", "Великобритания-с"];
+	var x1 = parseFloat(xcol);
+	var y1 = parseFloat(ycol);
+	var ta = rangesOfColumnMinAndMax.split(";;");
+	var xx330 = '';
+	var yy330 = '';
+	var a0 = ta[x1];
+var mmOX=a0.split(";"); 
+var minX=parseFloat(mmOX[0]);
+var maxX=parseFloat(mmOX[1]);
+	var a0Y = ta[y1];
+var mmOY=a0Y.split(";"); 
+var minY=parseFloat(mmOY[0]);
+var maxY=parseFloat(mmOY[1]);
+	// fitRange превращает диапазон 1951;1999 в 1950;2000, потому что 25 шагов по 2 года
+	ab=fitRange1(minX, maxX, 30);
+	var bc = NUMBERseries(ab) + ';';
+	var de = bc.split(';;'); 
+	var fg = de[0];
+	XYf = 0; 
+	document.getElementById('OXshkala').value = TEXTscale(fg, xA4);
+
+	abY=fitRange1(minY, maxY, 12);
+	var bcY = NUMBERseries(abY) + ';'; //determineEveryNumberOfRange 
+	var deY = bcY.split(';;');
+	var fgY = deY[0];
+	XYf = 1;
+	document.getElementById('OYshkala').value = TEXTscale(fgY, yA4);
+
+if (yLeft == '0')
+	{
+		sus = xA4.split(";"); 
+		xx330 = sus[0];
+	}
+else	
+	{
+		sus = xA4.split(";"); 
+		xx330 = sus[1];
+	}
+	
+if (xDown == '0')
+	{
+		sus = yA4.split(";"); 
+		yy330 = sus[0];
+	}
+else
+	{
+		sus = yA4.split(";"); 
+		yy330 = sus[1];
+	}
+
+	var TEXToxSCALE = document.getElementById('OXshkala').value;
+	var TEXToySCALE = document.getElementById('OYshkala').value;
+	var targ = document.getElementById('target').value;
+	var Tneo = '';
+	var TneoA = '';
+	var Yneo = '';
+	var YneoA = '';
+	
+	var arrayOfTableStringsOX = TEXToxSCALE.split("\n");
+	for (var i = 0; i < arrayOfTableStringsOX.length; i++)
+	{
+		TEXTscaleSTRINGelements = arrayOfTableStringsOX[i].split("\t");
+		Tneo = Tneo + TEXTscaleSTRINGelements[0] + ';'; 
+		TneoA = TneoA + TEXTscaleSTRINGelements[1] + ';';
+	}
+
+	var arrayOfTableStringsOY = TEXToySCALE.split("\n");
+	for (var i = 0; i < arrayOfTableStringsOY.length - 1; i++)	
+	{
+		TEXTscaleSTRINGelements = arrayOfTableStringsOY[i].split("\t");
+		Yneo = Yneo + TEXTscaleSTRINGelements[0] + ';'; 
+		YneoA = YneoA + TEXTscaleSTRINGelements[1] + ';';
+	}
+
+	var arrayOfTableStringsT = targ.split("\n");
+	var xyT = '';
+	var SIMPLEpoly = '';
+	for (var i = a; i < b; i = i + 1)		
+	{
+		TEXTscaleSTRINGelements = arrayOfTableStringsT[i].split("\t"); 
+		xyT = TEXTscaleSTRINGelements[x1] + ';' + TEXTscaleSTRINGelements[y1];
+		SIMPLEpoly = SIMPLEpoly + convert2ValuesTo2Coordinates(xyT, Tneo, Yneo, TneoA, YneoA) + '\n';
+	}
+
+	SIMPLEpoly = SIMPLEpoly.replace(/;/g, ',');
+
+	var fsize = "12"; 
+	var OXred = xColor; ///'red';
+	var sSVG = "<polyline fill='none' stroke='" + OXred + "' stroke-width='1' points='"; 
+	sSVG = sSVG + SIMPLEpoly + "' />";
+	var arrayOfTableStrings = TEXToxSCALE.split("\n");
+	var arrayOfTableStrings2 = TEXToySCALE.split("\n");
+
+	var OXsh = yy330; 
+	var OYsh = xx330; 
+
+	var XXA4 = xA4;
+	var YYA4 = yA4;
+	var DECItemp = 5;
+	sXA4 = XXA4.split(";"); 
+	sYA4 = YYA4.split(";");
+	X1A4 = sXA4[0];
+	X2A4 = sXA4[1];
+	Y1A4 = sYA4[0];
+	Y2A4 = sYA4[1];
+
+if (Xis1 == '1')
+{
+	sSVG = sSVG + "\n" + "<polyline fill='none' stroke='#000000' stroke-width='0.5' points='"; 
+	sSVG = sSVG + X1A4 + "," + yy330 + " " + X2A4 + "," + yy330 + "' />";
+
+	for (var i = 0; i < arrayOfTableStrings.length; i++)	
+	{
+		TEXTscaleSTRINGelements = arrayOfTableStrings[i].split("\t");
+		var result1 = TEXTscaleSTRINGelements[2].replace(/\s+/g, '')
+		if (result1 == '')
+			DECItemp = 5;
+		else
+			DECItemp = 10;
+		var nOXsh1 = parseFloat(yy330) + DECItemp;
+		var OXsh1 = nOXsh1.toString(); 
+		var nOYsh1 = parseFloat(xx330) + 20;
+		var nOYsh2 = parseFloat(xx330) - 5;
+		var OYsh1 = nOYsh1.toString();
+		var OYshS = nOYsh2.toString(); 
+		var nOXsh2 = parseFloat(TEXTscaleSTRINGelements[1]) - 4;
+		var OXsh2 = nOXsh2.toString();
+		var nOYsh3 = parseFloat(OXsh1) + 8;
+		var OYsh3 = nOYsh3.toString();
+		sSVG = sSVG + "\n" + "<polyline fill='none' stroke='#000000' stroke-width='0.5' points='"; // textOfSVGfile
+		sSVG = sSVG + TEXTscaleSTRINGelements[1] + "," + yy330 + " " + TEXTscaleSTRINGelements[1] + "," + OXsh1 + "' />";
+var Xvis=TEXTscaleSTRINGelements[2];
+
+//2020 Numbers of every Month
+
+var Xn = parseFloat(Xvis);
+var Xprov=Xn;
+
+//Xn=Xn-1;
+
+if (Xn > 31 && Xprov > 31) 
+{
+Xn = Xn-31;
+Xvis = Xn.toString();
+}
+
+if (Xn > 29 && Xprov > 60) 
+{
+Xn = Xn-29;
+Xvis = Xn.toString();
+}
+
+if (Xn > 31 && Xprov > 91) 
+{
+Xn = Xn-31;
+Xvis = Xn.toString();
+}
+
+if (Xn > 30 && Xprov > 121) 
+{
+Xn = Xn-30;
+Xvis = Xn.toString();
+}
+
+if (Xn > 0) 
+{
+Xvis = Xn.toString();
+}
+
+
+
+		sSVG = sSVG + "\n" + "<text x='" + OXsh2 + "' y='" + OYsh3 + 
+			"' fill='black' font-family='Arial' font-size='" + fsize + "'>" + Xvis + "</text>";
+	}
+}
+
+if (Yis1 == '1')
+{
+	sSVG = sSVG + "\n" + "<polyline fill='none' stroke='#000000' stroke-width='0.5' points='" + xx330 + ",";
+	sSVG = sSVG + Y1A4 + " " + xx330 + "," + Y2A4 + "' />";
+
+	for (var i = 0; i < arrayOfTableStrings2.length; i++)
+	{
+		TEXTscaleSTRINGelements = arrayOfTableStrings2[i].split("\t"); 
+		result1 = TEXTscaleSTRINGelements[2].replace(/\s+/g, '');
+		if (result1 == '')
+			DECItemp = 5;
+		else
+			DECItemp = 10;
+		nOXsh1 = parseFloat(yy330) + DECItemp;
+		OXsh1 = nOXsh1.toString();
+		nOYsh1 = parseFloat(xx330) + DECItemp;
+		OYsh1 = nOYsh1.toString();
+		sSVG = sSVG + "\n" + "<polyline fill='none' stroke='#000000' stroke-width='0.5' points='" + xx330 + ",";
+		sSVG = sSVG + TEXTscaleSTRINGelements[1] + " " + OYsh1 + "," + TEXTscaleSTRINGelements[1] + "' />";
+		if (i == (arrayOfTableStrings2.length - 1))
+			TEXTscaleSTRINGelements[2] = colNames[ycol];
+		sSVG = sSVG + "\n" + "<text x='" + OYsh1 + "' y='" + TEXTscaleSTRINGelements[1] + "' fill='" + xColor + 
+			"' font-family='Arial' font-size='" + fsize + "'>" + TEXTscaleSTRINGelements[2] + "</text>";
+	} 
+}
+
+
+	return sSVG;
+}
+
+// Построение шкалы от точки A до точки B на листе бумаги,
+// при этом на ней делается разметка от x1 до x2 или от y1 до y2
+function TEXTscale(x1xN, min4max4)
+{
+	// Рекомендуется описание переменных
+	var pieces = x1xN.split(";"); //partsOfX1XnRange
+	var pieces2 = min4max4.split(";"); //partsOfXA41XA4nRange
+	var qx = NUMBERchars(x1xN, ";");
+	var qy = NUMBERchars(min4max4, ";");
+	var yleft = parseFloat(pieces2[0]);
+	var yright = parseFloat(pieces2[1]);
+	var sm3 = "";
+	var sm4 = "";
+	var xval = 0;
+	var xSt = 0;
+	var smpp;
+	var stepX = document.getElementById("xStep").value;
+	if (XYf == 1)
+		stepX = document.getElementById("yStep").value;
+	xSt = parseFloat(stepX);
+	for (var j = 0; j < qx; j = j + xSt)
+	{
+		j = NUMBERround(j, 3);
+		var i = Math.floor(j); 
+		var jpp = j - i;
+		smart2 = NUMBERpropo(parseFloat(pieces[0]), parseFloat(pieces[qx]), parseFloat(pieces[i]), 
+			parseFloat(pieces2[0]), parseFloat(pieces2[1]));  // XA4amongXA41XA4n
+		smpp = NUMBERpropo(0, 1, jpp, parseFloat(pieces[i]), parseFloat(pieces[i + 1]));
+		smpp = NUMBERround(smpp, 7);
+		smart2 = NUMBERpropo(0, 1, jpp, parseFloat(pieces2[i]), parseFloat(pieces2[i + 1]));
+		if (smart2 != pieces2[1])
+		{
+			sm3 = sm3 + smpp; sm3 = sm3 + "\t";
+			smart2 = NUMBERpropo(parseFloat(pieces[0]), parseFloat(pieces[qx]), smpp, parseFloat(pieces2[0]), parseFloat(pieces2[1]));
+			smart2 = NUMBERround(smart2, 3);
+			if (smart2 == "0")
+				smart2 = "0.0001"; 
+			sm3 = sm3 + smart2;
+			xval = parseFloat(smart2);
+			if (jpp == 0)
+				sm4 = smpp;
+			else
+				sm4 = " "; 
+
+	if (sm4 == "0")
+		sm4 = " ";
+	//if (xval > 30)
+	//{
+	//	xval > xval-30;
+	//	sm4=xval.toString();
+	//}
+//minC.toString()
+//////////////////////////////xval = parseFloat(sm4);
+//	if (XYf == 1)
+//if (xval > 30)
+	//{
+	//	xval > xval-30;
+	//	sm4=xval.toString();
+	//}
+
+			sm3 = sm3 + "\t" + sm4 + "\n";
+		}
+	}
+	coo = parseFloat(pieces2[1]);// Предохранитель от 599.99999999999999999
+	coo = NUMBERround(coo, 4);
+	if (coo == 0)
+		coo = 0.0001;
+//2020 - April 2020
+	coo2 = parseFloat(pieces[qx]);
+	if (coo2 == "0")
+		coo2 = "April 2020";
+
+	sm3 = sm3 + parseFloat(pieces[qx])+"\t"+coo+"\t"+coo2;
+	return sm3;
+}
+
+// Превращает пару значений из столбцов таблицы в точку на листе бумаги xA4;yA4 
+function convert2ValuesTo2Coordinates(xy1, x1, y1, xa4, ya4)
+{
+	var srav = xy1.split(";");
+	var d0 = convert1ValueTo1Coordinate(x1, xa4, srav[0]);
+	var h0 = convert1ValueTo1Coordinate(y1, ya4, srav[1]);
+	var gett = d0 + ";" + h0; 
+	return gett;
+}
+
+// Делает то же самое, что convert2ValuesTo2Coordinates, только либо для одного значения x, либо для одного значения y
+function convert1ValueTo1Coordinate(VECTOR1, VECTOR2, xVECTOR1)
+{
+	var lastChar1 = VECTOR1.substr(VECTOR1.length - 1); // => "1"
+	var lastChar2 = VECTOR2.substr(VECTOR2.length - 1); // => "1"
+	//1;2;3;4;5 - начальная ось OX ($VECTOR1)
+	//10;20;30;40;50 - конечный интервал на листе ($VECTOR2)
+	var pieces = VECTOR1.split(";"); 
+	var pieces2 = VECTOR2.split(";");
+	var xleft = parseFloat(pieces[0]);
+	var q = NUMBERchars(VECTOR1, ";");
+	if (lastChar1 == ';' || lastChar2 == ';')
+		q = q - 1;
+	var xright = parseFloat(pieces[q]); 
+	var smart2 = 0;
+	for (var i = 0; i < q; i++)
+	{
+		var pr2 = (xVECTOR1 >= parseFloat(pieces[i]) && xVECTOR1 <= parseFloat(pieces[i + 1]) || 
+			xVECTOR1 <= parseFloat(pieces[i]) && xVECTOR1 >= parseFloat(pieces[i + 1]));
+		if (pr2 == true)
+		{
+			smart2 = NUMBERpropo(parseFloat(pieces[i]), parseFloat(pieces[i + 1]), xVECTOR1, 
+				parseFloat(pieces2[i]), parseFloat(pieces2[i + 1]));
+		}
+	}
+	if (xVECTOR1 < xleft && xleft < xright || xVECTOR1 > xleft && xleft > xright)
+	{
+		smart2 = NUMBERpropo(parseFloat(pieces[0]), parseFloat(pieces[1]), xVECTOR1, 	
+			parseFloat(pieces2[0]), parseFloat(pieces2[1]));
+	}
+	if ((xVECTOR1 > xleft && xVECTOR1 > xright && xleft < xright) || (xVECTOR1 < xleft && xVECTOR1 > xright && xleft > xright))
+	{
+		smart2 = NUMBERpropo(parseFloat(pieces[q - 1]), parseFloat(pieces[q]), 
+			xVECTOR1, parseFloat(pieces2[q - 1]), parseFloat(pieces2[q]));
+	}
+	return smart2;
+}
+
+// NumberPropo обслуживает convert1ValueTo1Coordinate, находит пропорцию
+function NUMBERpropo(x1, x2, xAmong, min4, max4)
+{
+	var part = (xAmong - x1) / (x2 - x1); 
+	return (max4 - min4) * part + min4; 
+}
+
+//находит количество ; в строке
+function NUMBERchars(qString, charInside)
+{
+	var j = 0; var rest = "";
+	for (var x = 0; x <= qString.length; x++)
+	{
+		rest = qString.substr(x, charInside.length);
+		if (rest == charInside) 
+			j++; 
+	}
+	return j;
+}
+
+//округляет число
+function NUMBERround(x, n)
+{
+	if (isNaN(x) || isNaN(n)) return 0;
+	var m = Math.pow(10, n); return Math.round(x * m) / m;
+}
+
+
+//строит числа в диапазоне о n1 до n2; 
+function NUMBERseries(fts)
+{
+	var FromToStep = fts.split(";");
+	var sFrom = FromToStep[0]; var vFrom = parseFloat(sFrom);
+	var sTo = FromToStep[1]; var vTo = parseFloat(sTo);
+	var sStep = FromToStep[3]; var vStep = parseFloat(sStep); 
+	var rr = "";
+	vTo = vTo + vStep;
+	for (var x = vFrom; x < vTo; x = x + vStep)
+	{
+		rr = rr + NUMBERfloat(x, vStep) + ";"
+	}
+	return rr;
+}
+
+// Округляет диапазон чисел
+function NUMBERfloat(xbig, xsmall)
+{
+	vmax = Math.floor(xbig / xsmall + 0.99) * xsmall;
+	var ni = xsmall.length;
+	vmax = vmax.toFixed(10); 
+	vmax = vmax * 1;
+	smax = vmax.toString();
+	if (Math.abs(vmax) < 0.001) 
+		smax = vmax.toExponential(1);
+	if (vmax == 0)
+		smax = "0";
+	smax = smax.replace('.0e', 'e');
+	return smax;
+}
+
+// Строит числа в диапазоне от n1 до n2 с шагом, кратным 1/2/5
+function fitRange1(a, b, nLines)
+{
+	a = Math.round(a * 100000000000000) / 100000000000000;
+	b = Math.round(b * 100000000000000) / 100000000000000;
+	var xr = Math.abs(b - a) / nLines;
+	var mimi = Math.abs(a / xr) / nLines * 5;
+	if (mimi < 1)
+	{
+		a = 0; 
+		xr = Math.abs(b - a) / nLines;
+	}
+	var loga = Math.log10(xr);
+	var inta = Math.floor(loga);
+	var deca = Math.pow(10, inta); 
+	var dd = deca;
+	var mi1 = Math.floor(a / deca);
+	var ma1 = Math.ceil(b / deca);
+	var iFlag = 0;
+	if ((ma1 - mi1) > (nLines * 2))
+	{
+		deca = deca * 5;
+		mi1 = Math.floor(a / deca);
+		ma1 = Math.ceil(b / deca); 
+		iFlag = iFlag + 1;
+	}
+	if ((ma1 - mi1) > (nLines))
+	{
+		deca = deca * 2;
+		mi1 = Math.floor(a / deca);
+		ma1 = Math.ceil(b / deca); 
+		iFlag = iFlag - 1;
+	}
+	if (iFlag == 0)
+		dd = deca / 5;
+	var mi2 = mi1 * deca; mi2 = Math.round(mi2 * 100000000000000) / 100000000000000; 
+	var ma2 = ma1 * deca; ma2 = Math.round(ma2 * 100000000000000) / 100000000000000;
+	var s4 = mi2.toString() + ";" + ma2.toString() + ";;" + deca.toString() + ";" + dd.toString(); 
+	return s4;
+}
+
+
+// Настройки графиков зависят от нажатых чекбоксов
+function myFunction()
+{
+}
+
+
+function destroyClickedElement(event)
+{
+	document.body.removeChild(event.target);
+}
+// Сохранить svg
+function saveTextAsFile()
+{
+	var textToSave = document.getElementById("inputTextToSave").value;
+	var textToSaveAsBlob = new Blob([textToSave], { type: "text/plain" });
+	var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);
+	var fileNameToSaveAs = 'Plot.svg';  //$('#inputFileNameToSaveAs').val() ? $('#inputFileNameToSaveAs').val() + '.svg' :'Plot.svg';
+	var downloadLink = document.createElement("a");
+	downloadLink.download = fileNameToSaveAs;
+	downloadLink.innerHTML = "Download File";
+	downloadLink.href = textToSaveAsURL;
+	downloadLink.onclick = destroyClickedElement;
+	downloadLink.style.display = "none";
+	document.body.appendChild(downloadLink);
+	downloadLink.click();
+}
+// Сохранить таблицу
+function saveTABLEAsFile()
+{
+	var textToSave = document.getElementById("target").value;
+	var textToSaveAsBlob = new Blob([textToSave], { type: "text/plain" });
+	var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);
+	var fileNameToSaveAs = 'Table.txt';  //$('#inputFileNameToSaveAs').val() ? $('#inputFileNameToSaveAs').val() + '.svg' :'Plot.svg';
+	var downloadLink = document.createElement("a");
+	downloadLink.download = fileNameToSaveAs;
+	downloadLink.innerHTML = "Download File";
+	downloadLink.href = textToSaveAsURL;
+	downloadLink.onclick = destroyClickedElement;
+	downloadLink.style.display = "none";
+	document.body.appendChild(downloadLink);
+	downloadLink.click();
+}
+
+function ChangeSign(){
+
+	var ab=document.getElementById('SVGs2').value; 
+
+var multiT=ab.split("\n");
+
+	var textSign = multiT[0].split(" ");
+
+////////////alert("111");
+
+var t2= "<text x='"+textSign[0]+"' y='"+textSign[1]+"' fill='black' font-family='Arial' font-size='"+textSign[2]+"'>"+textSign[3]+"</text>";
+
+textSign = multiT[1].split(" ");
+
+t2= t2+"\n"+"<text x='"+textSign[0]+"' y='"+textSign[1]+"' fill='black' font-family='Arial' font-size='"+textSign[2]+"'>"+textSign[3]+"</text>";
+
+textSign = multiT[2].split(" ");
+
+t2= t2+"\n"+"<text x='"+textSign[0]+"' y='"+textSign[1]+"' fill='black' font-family='Arial' font-size='"+textSign[2]+"'>"+textSign[3]+"</text>";
+
+textSign = multiT[3].split(" ");
+
+t2= t2+"\n"+"<text x='"+textSign[0]+"' y='"+textSign[1]+"' fill='black' font-family='Arial' font-size='"+textSign[2]+"'>"+textSign[3]+"</text>";
+
+textSign = multiT[4].split(" ");
+
+t2= t2+"\n"+"<text x='"+textSign[0]+"' y='"+textSign[1]+"' fill='black' font-family='Arial' font-size='"+textSign[2]+"'>"+textSign[3]+"</text>";
+
+textSign = multiT[5].split(" ");
+
+t2= t2+"\n"+"<text x='"+textSign[0]+"' y='"+textSign[1]+"' fill='black' font-family='Arial' font-size='"+textSign[2]+"'>"+textSign[3]+"</text>";
+
+textSign = multiT[6].split(" ");
+
+t2= t2+"\n"+"<text x='"+textSign[0]+"' y='"+textSign[1]+"' fill='black' font-family='Arial' font-size='"+textSign[2]+"'>"+textSign[3]+"</text>";
+
+textSign = multiT[7].split(" ");
+
+t2= t2+"\n"+"<text x='"+textSign[0]+"' y='"+textSign[1]+"' fill='black' font-family='Arial' font-size='"+textSign[2]+"'>"+textSign[3]+"</text>";
+
+///////////////////alert("222");
+
+document.getElementById('memo9').value=t2; 
+
+//document.getElementById('memo9').value=ab;"
+}
+
+
+function ChangeSelect(){
+
+var n1 = document.getElementById("SM01").options.selectedIndex;
+var val1 = document.getElementById("SM01").options[n1].value;
+var nn2=parseFloat(val1);
+nn2=nn2+1;
+var n12=nn2.toString();
+
+
+//var wal1 = document.getElementById("SM01").options[n1].value;
+
+var n2 = document.getElementById("SM02").options.selectedIndex;
+var val2 = document.getElementById("SM02").options[n2].value;
+nn2=parseFloat(val2);
+nn2=nn2+1;
+var n22=nn2.toString();
+
+var n3 = document.getElementById("SM03").options.selectedIndex;
+var val3 = document.getElementById("SM03").options[n3].value;
+nn2=parseFloat(val3);
+nn2=nn2+1;
+var n32=nn2.toString();
+
+var n4 = document.getElementById("SM04").options.selectedIndex;
+var val4 = document.getElementById("SM04").options[n4].value;
+nn2=parseFloat(val4);
+nn2=nn2+1;
+var n42=nn2.toString();
+
+//alert(txt);
+var vvvv=""+val1+","+val2+","+val3+","+val4;
+var wwww=""+n12+","+n22+","+n32+","+n42;
+var vwvw=""+val1+","+n12+","+val2+","+n22;
+
+/// alert(vvvv);
+/// alert(wwww);
+
+var ttt="";
+
+		if (document.getElementById("cCase").checked) 
+				ttt=vvvv;
+	if (document.getElementById("cDeath").checked) 
+				ttt=wwww;
+
+if (document.getElementById("cCase").checked && document.getElementById("cDeath").checked)
+				ttt=vwvw;
+//alert(ttt);
+
+var uuu=ttt.split(",");
+//alert(uuu[1]);
+
+	var FOUR2 = ['20;600 200;10 0 0 black 1 1', '20;600 200;10 1 1 grey 1 1',
+		'20;600 400;210 0 0 black 1 1', '20;600 400;210 1 1 gray 0 1'];
+
+var FIVE = "11 "+uuu[0]+" "+FOUR2[0]+"\n"+"11 "+uuu[1]+" "+FOUR2[1]+"\n"+"11 "+uuu[2]+" "+FOUR2[2]+"\n"+"11 "+uuu[3]+" "+FOUR2[3]+"\n";
+
+	//alert(FIVE);
+
+	document.getElementById("temptext").value=FIVE;
+
+	//document.getElementById("myCh1").checked
+	//document.getElementById("myCh1").checked
+
+}
+
+</script>
+
+
+<h2><span>Заболеваемость коронавирусом (количество заражений и смертей) за каждый день с 31.12.2019 (тыс. чел.)</span></h2>
+
+
+Вспомогательные деления OX/OY: <textarea rows="1" cols="5" class="input_type" id="xStep"  name="xStep">0.2</textarea>
+/
+<textarea rows="1" cols="5" class="input_type" id="yStep"  name="yStep">0.2</textarea>
+<input type="button" value="Обновить график" onclick="ChangeSign();PLOTbuild()">
+
+<input type="button" value="Сохранить рисунок в SVG" onclick="saveTextAsFile()">
+<input type="button" value="Сохранить таблицу в TXT" onclick="saveTABLEAsFile()">
+
+<br>
+
+Чтобы увидеть значения по четырём странам, нужно, чтобы был нажат только чекбокс по заражениям, либо только по смертности. Иначе видны значения по первым двум странам (заражения+смертность).
+<br>
+<SELECT name="SM01" id="SM01" onchange="ChangeSelect();ChangeSign();PLOTbuild()">
+<OPTION SELECTED VALUE="1">США</OPTION>
+<OPTION VALUE="3">Россия</OPTION>
+<OPTION VALUE="5">Франция</OPTION>
+<OPTION VALUE="7">Испания</OPTION>
+<OPTION VALUE="9">Италия</OPTION>
+
+<OPTION VALUE="12">Германия</OPTION>
+<OPTION VALUE="14">Турция</OPTION>
+<OPTION VALUE="16">Иран</OPTION>
+
+<OPTION VALUE="18">Китай</OPTION>
+<OPTION VALUE="20">Великобритания</OPTION>
+</SELECT>
+
+<SELECT name="SM02" id="SM02" onchange="ChangeSelect();ChangeSign();PLOTbuild()">
+<OPTION  VALUE="1">США</OPTION>
+<OPTION SELECTED VALUE="3">Россия</OPTION>
+<OPTION VALUE="5">Франция</OPTION>
+<OPTION VALUE="7">Испания</OPTION>
+<OPTION VALUE="9">Италия</OPTION>
+
+<OPTION VALUE="12">Германия</OPTION>
+<OPTION VALUE="14">Турция</OPTION>
+<OPTION VALUE="16">Иран</OPTION>
+
+<OPTION VALUE="18">Китай</OPTION>
+<OPTION VALUE="20">Великобритания</OPTION>
+</SELECT>
+
+<SELECT name="SM03" id="SM03" onchange="ChangeSelect();ChangeSign();PLOTbuild()">
+<OPTION  VALUE="1">США</OPTION>
+<OPTION VALUE="3">Россия</OPTION>
+<OPTION SELECTED VALUE="5">Франция</OPTION>
+<OPTION VALUE="7">Испания</OPTION>
+<OPTION VALUE="9">Италия</OPTION>
+
+<OPTION VALUE="12">Германия</OPTION>
+<OPTION VALUE="14">Турция</OPTION>
+<OPTION VALUE="16">Иран</OPTION>
+
+<OPTION VALUE="18">Китай</OPTION>
+<OPTION VALUE="20">Великобритания</OPTION>
+</SELECT>
+
+<SELECT name="SM04" id="SM04" onchange="ChangeSelect();ChangeSign();PLOTbuild()">
+<OPTION  VALUE="1">США</OPTION>
+<OPTION VALUE="3">Россия</OPTION>
+<OPTION VALUE="5">Франция</OPTION>
+<OPTION SELECTED VALUE="7">Испания</OPTION>
+<OPTION VALUE="9">Италия</OPTION>
+
+<OPTION VALUE="12">Германия</OPTION>
+<OPTION VALUE="14">Турция</OPTION>
+<OPTION VALUE="16">Иран</OPTION>
+
+<OPTION VALUE="18">Китай</OPTION>
+<OPTION VALUE="20">Великобритания</OPTION>
+</SELECT>
+
+
+<input type="checkbox" id="cCase"  onclick="ChangeSelect();ChangeSign();PLOTbuild()" checked > Заболеваемость
+<input type="checkbox" id="cDeath" onclick="ChangeSelect();ChangeSign();PLOTbuild()" checked> Смертность
+
+<input type="button" value="Обновить график" onclick="ChangeSelect();ChangeSign();PLOTbuild()"  style="display:none">
+
+
+<textarea rows="1" cols="5" class="input_type" id="SVGs2"  style="display:none" >
+50 230 12 Январь,&nbsp;2020&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Февраль,&nbsp;2020&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Март,&nbsp;2020&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Апрель,&nbsp;2020&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Май
+450 230 12 
+50 40 12 Январь,&nbsp;2020&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Февраль,&nbsp;2020&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Март,&nbsp;2020&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Апрель,&nbsp;2020&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Май
+450 40 12 
+170 230 10 
+200 230 10 
+10 230 10 
+40 230 10 
+</textarea>
+ <input type="button" value="Change sign" onclick="ChangeSign();"  style="display:none" >
+<textarea rows="1" cols="5" class="input_type" id="memo9"  style="display:none" >50 230 14 Апрель,2020
+490 230 14 Май,2020
+110 230 10 
+140 230 10 
+170 230 10 
+200 230 10 
+10 230 10 
+40 230 10 
+</textarea>
+
+
+
+<b id="boldStuff" style="color:transparent;">SVG</b><textarea id="inputTextToSave" class="input_type" style="display:none"></textarea>
+<br><textarea class="input_type" id="temptext" name="temptext" cols="80" rows="3"  style="display:none">11 1 20;600 200;10 0 0 black 1 1
+11 2 20;600 200;10 1 1 gray 1 1
+11 3 20;600 400;210 0 0 black 1 1
+11 4 20;600 400;210 1 1 grey 0 1
+</textarea>
+
+<br><textarea class="input_type" id="target" name="target" cols="98" rows="28"  wrap="off">
+Дата	США-з	с	Россия-з с	Франция-з с	Испания-з с	Италия-з с	День	Германия-з с	Турция-з с	Иран-з с	Китай-з с	Великобратиния-з с
+20.05	1558	92.25	308	2.97	181	28.28	237	27.77	226	32.16	141	178	8.19	151	4.2	124	7.12	84	4.64	250	35.42
+19.05	1537	90.69	299	2.82	180	28.24	237	27.71	225	32	140	177	8.12	150	4.17	122	7.05	84	4.64	247	34.87
+18.05	1516	89.93	290	2.72	179	28.11	237	27.65	225	31.91	139	176	8.05	149	4.14	120	6.99	84	4.64	245	34.72
+17.05	1497	89.42	282	2.62	179	27.62	237	27.56	224	31.76	138	176	8.02	148	4.1	118	6.94	84	4.64	241	34.54
+16.05	1473	88.23	272	2.53	179	27.53	237	27.46	224	31.61	137	175	8.00	146	4.05	116	6.9	84	4.64	238	34.08
+15.05	1441	86.45	262	2.4	179	27.42	237	27.32	223	31.37	136	175	7.93	144	4.0	114	6.85	84	4.64	234	33.65
+14.05	1414	84.7	252	2.3	178	27.07	237	27.1	222	31.1	135	174	7.86	143	3.95	112	6.78	84	4.64	230	33.22
+13.05	1393	82.96	242	2.21	178	26.99	237	26.92	221	30.91	134	173	7.75	141	3.89	110	6.73	84	4.64	226	32.69
+12.05	1373	81.33	232	2.11	177	26.64	237	26.74	219	30.74	133	172	7.66	139	3.84	109	6.68	84	4.64	223	32.06
+11.05	1356	80.36	221	2.00	177	26.38	237	26.62	218	30.56	132	171	7.57	138	3.78	107	6.64	84	4.64	219	31.89
+10.05	1333	79.51	209	1.91	176	26.31	237	26.48	218	30.40	131	171	7.54	137	3.74	106	6.59	84	4.64	215	31.62
+09.05	1307	78.00	198	1.80	176	26.23	237	26.30	217	30.20	130	170	7.51	135	3.69	104	6.54	84	4.64	212	31.28
+08.05	1279	76.38	187	1.72	175	25.96	237	26.07	215	29.95	129	169	7.39	133	3.64	103	6.48	84	4.64	207	30.65
+07.05	1250	74.27	177	1.62	174	25.81	237	25.85	214	29.68	128	168	7.27	131	3.58	101	6.42	84	4.64	201	30.11
+06.05	1225	71.80	165	1.53	170	25.53	236	25.60	213	29.31	127	167	6.99	129	3.52	100	6.34	84	4.64	195	29.42
+05.05	1200	69.00	155	1.45	169	25.00	236	25.42	212	29.00	126	166	6.99	127	3.46	99	6.30	84	4.64	190	28.73
+04.05	1158	67.68	135	1.28	134	24.90	236	25.20	211	28.88	125	163	6.86	126	3.39	97	6.20	84	4.64	187	28.45
+03.05	1133	66.39	124	1.22	134	24.76	230	25.10	209	28.71	124	162	6.81	124	3.33	96	6.16	84	4.64	182	28.13
+02.05	1104	65.07	114	1.17	133	24.59	217	25.00	207	28.24	123	162	6.58	122	3.25	96	6.09	84	4.64	177	27.51
+01.05	1070	63.01	106	1.07	132	24.38	216	24.83	205	27.97	122	159	6.29	120	3.17	95	6.03	84	4.64	171	26.77
+30.04	1040	60.97	99	0.97	131	24.09	215	24.56	204	27.68	121	159	6.29	118	3.07	94	5.96	84	4.64	165	26.10
+29.04	1013	58.36	94	0.87	129	23.66	213	24.28	202	27.36	120	158	6.12	115	2.99	93	5.88	84	4.64	161	25.30
+28.04	988	56.25	87	0.80	128	23.29	211	23.82	199	26.98	119	156	5.91	112	2.90	91	5.81	84	4.64	157	24.39
+27.04	966	54.88	81	0.75	125	22.86	208	23.19	198	26.64	118	155	5.75	110	2.81	90	5.71	84	4.64	153	24.06
+26.04	939	53.19	75	0.68	124	22.61	208	23.19	195	26.38	117	154	5.64	108	2.71	89	5.65	84	4.64	148	23.64
+25.04	891	51.02	69	0.62	123	22.25	206	22.90	193	25.97	116	152	5.50	105	2.60	88	5.57	84	4.64	143	22.79
+24.04	869	49.96	63	0.56	121	21.86	203	22.52	190	25.55	115	150	5.32	102	2.49	87	5.48	84	4.64	138	21.79
+23.04	843	46.78	58	0.51	119	21.34	200	22.16	187	25.09	114	148	5.09	99	2.38	86	5.39	84	4.64	133	21.06
+22.04	825	45.06	53	0.46	117	20.80	197	21.72	184	24.65	113	146	4.88	96	2.26	85	5.30	84	4.64	129	20.22
+21.04	788	42.54	47	0.41	115	20.27	195	21.28	181	24.11	112	143	4.60	91	2.14	84	5.21	84	4.64	125	19.05
+20.04	760	40.68	43	0.36	113	19.72	191	20.85	179	23.66	111	142	4.40	86	2.02	82	5.12	84	4.64	120	18.49
+19.04	735	38.91	37	0.31	112	19.32	189	20.45	176	23.23	110	140	4.29	82	1.89	81	5.03	84	4.64	114	17.99
+18.04	702	37.05	32	0.27	109	18.68	190	20.04	172	22.75	109	137	4.11	79	1.77	79	4.96	84	4.64	109	16.88
+17.04	671	33.28	28	0.23	109	17.92	186	19.48	169	22.17	108	134	3.87	74	1.64	78	4.87	84	4.64	103	15.94
+16.04	640	30.99	24	0.20	106	17.17	182	18.89	165	21.65	107	130	3.57	69	1.52	76	4.78	83	3.35	98	14.92
+15.04	610	26.06	21	0.17	104	15.73	177	18.28	162	21.07	106	128	3.25	65	1.40	75	4.68	83	3.35	94	14.07
+14.04	583	23.65	18	0.15	98	14.97	169	17.49	160	20.47	105	125	2.97	61	1.30	73	4.59	83	3.35	89	13.03
+13.04	558	22.11	16	0.13	95	14.39	166	16.97	156	19.90	104	123	2.80	57	1.20	72	4.47	83	3.35	84	12.29
+12.04	530	20.61	14	0.11	94	13.83	162	16.35	152	19.47	103	120	2.67	52	1.10	70	4.36	83	3.34	79	11.60
+11.04	502	18.78	12	0.09	91	13.20	157	15.84	148	18.85	102	118	2.54	47	1.01	68	4.23	83	3.34	70	10.76
+10.04	466	16.69	10	0.08	86	12.21	152	15.24	144	18.28	101	114	2.37	42	0.91	66	4.11	83	3.34	65	9.61
+09.04	432	14.82	9	0.06	82	10.87	147	14.56	139	17.67	100	108	2.11	38	0.81	65	3.99	83	3.34	61	8.51
+08.04	399	12.90	7	0.06	78	10.33	141	13.80	136	17.13	99	103	1.86	34	0.73	63	3.87	83	3.34	55	7.47
+07.04	368	10.99	6	0.05	74	8.91	135	13.06	133	16.53	98	99	1.61	30	0.65	61	3.74	83	3.34	52	6.43
+06.04	338	9.65	5	0.05	70	8.08	131	12.42	129	15.89	97	95	1.43	27	0.57	58	3.60	83	3.34	48	5.87
+05.04	312	8.50	5	0.04	69	7.56	125	11.74	125	15.36	96	92	1.34	24	0.50	56	3.45	83	3.33	42	5.22
+04.04	278	7.16	4	0.03	64	6.51	118	10.94	120	14.68	95	86	1.16	21	0.43	50	3.16	83	3.33	38	4.46
+03.04	246	6.05	4	0.03	59	4.50	110	10.00	115	13.92	94	80	1.02	18	0.36	50	3.16	82	3.33	34	3.75
+02.04	217	5.14	3	0.02	57	4.03	102	9.05	111	13.16	93	74	0.87	16	0.28	48	3.04	82	3.32	29	3.10
+01.04	190	4.08	2	0.02	52	3.52	94	8.19	106	12.43	92	67	0.73	14	0.21	45	2.90	82	3.31	25	2.43
+31.03	165	3.17	2	0.01	45	3.02	85	7.34	102	11.59	91	62	0.58	11	0.17	41	2.76	82	3.31	22	2.04
+30.03	143	2.51	2	0.01	40	2.61	79	6.53	98	10.78	90	57	0.46	9	0.13	38	2.64	82	3.31	20	1.67
+29.03	125	2.19	1	0.01	38	2.31	72	5.69	92	10.02	89	53	0.39	7	0.11	35	2.52	82	3.30	17	1.46
+28.03	105	1.71	1	0.00	33	2.00	64	4.86	86	9.14	88	49	0.33	6	0.09	32	2.38	82	3.30	15	1.16
+27.03	86	1.30	1	0.00	29	1.70	56	4.09	81	8.17	87	42	0.25	4	0.08	29	2.23	82	3.30	12	0.88
+26.03	69	1.05	1	0.00	25	1.33	48	3.43	74	7.51	86	37	0.20	2	0.06	27	2.08	82	3.29	10	0.69
+25.03	55	0.80	0	0.00	22	1.10	40	2.70	69	6.82	85	32	0.15	2	0.04	25	1.93	82	3.29	8	0.51
+24.03	46	0.59	0	0.00	20	0.86	33	2.18	64	6.08	84	29	0.13	2	0.04	23	1.81	82	3.28	7	0.36
+23.03	35	0.47	0	0.00	16	0.67	29	1.72	59	5.48	83	25	0.09	1	0.03	22	1.69	81	3.27	6	0.29
+22.03	27	0.34	0	0.00	14	0.56	25	1.33	54	4.83	82	21	0.07	1	0.02	21	1.56	81	3.27	5	0.25
+21.03	20	0.26	0	0.00	13	0.45	20	1.00	47	4.03	81	18	0.05	1	0.01	20	1.43	81	3.26	4	0.19
+20.03	14	0.15	0	0.00	11	0.37	17	0.77	41	3.41	80	14	0.04	0	0.00	18	1.28	81	3.25	3	0.16
+19.03	9	0.15	0	0.00	9	0.24	14	0.60	36	2.98	79	8	0.01	0	0.00	17	1.14	81	3.25	3	0.12
+18.03	6	0.11	0	0.00	8	0.18	11	0.49	32	2.51	78	7	0.01	0	0.00	16	0.99	81	3.24	2	0.08
+17.03	5	0.09	0	0.00	7	0.15	9	0.31	28	2.16	77	6	0.01	0	0.00	15	0.85	81	3.23	2	0.07
+16.03	4	0.07	0	0.00	5	0.13	8	0.29	24	1.81	76	5	0.01	0	0.00	14	0.72	81	3.22	1	0.04
+15.03	3	0.06	0	0.00	4	0.09	6	0.14	21	1.44	75	4	0.01	0	0.00	13	0.61	81	3.20	1	0.03
+14.03	2	0.05	0	0.00	4	0.08	4	0.12	18	1.27	74	3	0.01	0	0.00	11	0.51	81	3.19	1	0.01
+13.03	2	0.04	0	0.00	3	0.06	3	0.08	15	1.02	73	2	0.01	0	0.00	10	0.43	81	3.18	1	0.01
+12.03	1	0.03	0	0.00	2	0.05	2	0.05	12	0.83	72	2	0.00	0	0.00	9	0.35	81	3.17	0	0.01
+11.03	1	0.03	0	0.00	2	0.03	2	0.04	10	0.63	71	1	0.00	0	0.00	8	0.29	81	3.16	0	0.01
+10.03	1	0.03	0	0.00	1	0.03	1	0.03	9	0.46	70	1	0.00	0	0.00	7	0.24	81	3.14	0	0.00
+09.03	1	0.02	0	0.00	1	0.02	1	0.01	7	0.37	69	1	0.00	0	0.00	7	0.19	81	3.12	0	0.00
+08.03	0	0.02	0	0.00	1	0.01	0	0.01	6	0.23	68	1	0.00	0	0.00	6	0.15	81	3.10	0	0.00
+07.03	0	0.01	0	0.00	1	0.01	0	0.01	5	0.20	67	1	0.00	0	0.00	5	0.12	81	3.07	0	0.00
+06.03	0	0.01	0	0.00	0	0.01	0	0.00	4	0.15	66	0	0.00	0	0.00	4	0.11	81	3.04	0	0.00
+05.03	0	0.01	0	0.00	0	0.00	0	0.00	3	0.11	65	0	0.00	0	0.00	3	0.09	80	3.01	0	0.00
+04.03	0	0.01	0	0.00	0	0.00	0	0.00	3	0.08	64	0	0.00	0	0.00	2	0.08	80	2.98	0	0.00
+03.03	0	0.01	0	0.00	0	0.00	0	0.00	2	0.05	63	0	0.00	0	0.00	2	0.07	80	2.95	0	0.00
+02.03	0	0.00	0	0.00	0	0.00	0	0.00	2	0.04	62	0	0.00	0	0.00	1	0.05	80	2.91	0	0.00
+01.03	0	0.00	0	0.00	0	0.00	0	0.00	1	0.03	61	0	0.00	0	0.00	1	0.04	80	2.87	0	0.00
+29.02	0	0.00	0	0.00	0	0.00	0	0.00	1	0.02	60	0	0.00	0	0.00	0	0.03	79	2.84	0	0.00
+28.02	0	0.00	0	0.00	0	0.00	0	0.00	1	0.02	59	0	0.00	0	0.00	0	0.03	79	2.79	0	0.00
+27.02	0	0.00	0	0.00	0	0.00	0	0.00	0	0.01	58	0	0.00	0	0.00	0	0.02	79	2.75	0	0.00
+26.02	0	0.00	0	0.00	0	0.00	0	0.00	0	0.01	57	0	0.00	0	0.00	0	0.02	78	2.72	0	0.00
+25.02	0	0.00	0	0.00	0	0.00	0	0.00	0	0.01	56	0	0.00	0	0.00	0	0.01	78	2.67	0	0.00
+24.02	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	55	0	0.00	0	0.00	0	0.01	77	2.60	0	0.00
+23.02	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	54	0	0.00	0	0.00	0	0.01	77	2.45	0	0.00
+22.02	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	53	0	0.00	0	0.00	0	0.00	76	2.35	0	0.00
+21.02	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	52	0	0.00	0	0.00	0	0.00	76	2.24	0	0.00
+20.02	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	51	0	0.00	0	0.00	0	0.00	75	2.12	0	0.00
+19.02	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	50	0	0.00	0	0.00	0	0.00	74	2.01	0	0.00
+18.02	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	49	0	0.00	0	0.00	0	0.00	73	1.87	0	0.00
+17.02	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	48	0	0.00	0	0.00	0	0.00	71	1.77	0	0.00
+16.02	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	47	0	0.00	0	0.00	0	0.00	69	1.67	0	0.00
+15.02	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	46	0	0.00	0	0.00	0	0.00	67	1.52	0	0.00
+14.02	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	45	0	0.00	0	0.00	0	0.00	64	1.38	0	0.00
+13.02	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	44	0	0.00	0	0.00	0	0.00	60	1.37	0	0.00
+12.02	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	43	0	0.00	0	0.00	0	0.00	45	1.11	0	0.00
+11.02	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	42	0	0.00	0	0.00	0	0.00	43	1.02	0	0.00
+10.02	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	41	0	0.00	0	0.00	0	0.00	40	0.91	0	0.00
+09.02	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	40	0	0.00	0	0.00	0	0.00	37	0.81	0	0.00
+08.02	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	39	0	0.00	0	0.00	0	0.00	35	0.72	0	0.00
+07.02	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	38	0	0.00	0	0.00	0	0.00	31	0.64	0	0.00
+06.02	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	37	0	0.00	0	0.00	0	0.00	28	0.56	0	0.00
+05.02	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	36	0	0.00	0	0.00	0	0.00	24	0.49	0	0.00
+04.02	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	35	0	0.00	0	0.00	0	0.00	20	0.43	0	0.00
+03.02	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	34	0	0.00	0	0.00	0	0.00	17	0.36	0	0.00
+02.02	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	33	0	0.00	0	0.00	0	0.00	14	0.30	0	0.00
+01.02	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	32	0	0.00	0	0.00	0	0.00	12	0.26	0	0.00
+31.01	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	31	0	0.00	0	0.00	0	0.00	10	0.21	0	0.00
+30.01	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	30	0	0.00	0	0.00	0	0.00	8	0.17	0	0.00
+29.01	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	29	0	0.00	0	0.00	0	0.00	6	0.13	0	0.00
+28.01	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	28	0	0.00	0	0.00	0	0.00	5	0.11	0	0.00
+27.01	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	27	0	0.00	0	0.00	0	0.00	3	0.08	0	0.00
+26.01	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	26	0	0.00	0	0.00	0	0.00	2	0.06	0	0.00
+25.01	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	25	0	0.00	0	0.00	0	0.00	1	0.04	0	0.00
+24.01	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	24	0	0.00	0	0.00	0	0.00	1	0.03	0	0.00
+23.01	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	23	0	0.00	0	0.00	0	0.00	1	0.02	0	0.00
+22.01	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	22	0	0.00	0	0.00	0	0.00	1	0.02	0	0.00
+21.01	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	21	0	0.00	0	0.00	0	0.00	0	0.01	0	0.00
+20.01	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	20	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00
+19.01	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	19	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00
+18.01	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	18	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00
+17.01	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	17	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00
+16.01	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	16	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00
+15.01	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	15	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00
+14.01	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	14	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00
+13.01	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	13	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00
+12.01	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	12	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00
+11.01	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	11	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00
+10.01	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	10	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00
+09.01	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	9	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00
+08.01	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	8	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00
+07.01	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	7	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00
+06.01	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	6	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00
+05.01	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	5	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00
+04.01	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	4	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00
+03.01	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	3	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00
+02.01	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	2	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00
+01.01	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	1	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00
+31.12.2019	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00	0	0	0.00	0	0.00	0	0.00	0	0.00	0	0.00
+</textarea>
+<br>
+<textarea name="OXshkala" id="OXshkala" class="input_type" style="display:none"></textarea>
+<textarea name="OYshkala" class="input_type" id="OYshkala" style="display:none"></textarea>
+<br>
+Ссылки:
+<br>
+<a href="https://covidly.com/">https://covidly.com/</a>
+<br>
+<a href="https://www.ecdc.europa.eu/sites/default/files/documents/COVID-19-geographic-disbtribution-worldwide.xlsx">https://www.ecdc.europa.eu/sites/default/files/documents/COVID-19-geographic-disbtribution-worldwide.xlsx</a>
+
+<br>
+<br>
+Youtube: <a href="https://www.youtube.com/watch?v=-ISkI20svr4">Информационный ресурс по драгметаллам</a>
+<br>
+	Youtube: <a href="https://www.youtube.com/watch?v=xblVoJbxyIc">CSV2SVG - программа построения графиков</a>
+	<br>
+	Github: <a href="https://github.com/yaroslav1982/csv2svg-online">csv2svg-online</a>
+	<br>
+	Feedback: Yaroslav Solyanikov (Ярослав Соляников)
+	<br>
+	+79644597661(WhatsApp) <a href="https://www.facebook.com/yaroslav1982">@yaroslav1982(Facebook)</a>
+
+</body>
+</html>
