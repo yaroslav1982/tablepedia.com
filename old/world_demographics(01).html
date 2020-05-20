@@ -1,0 +1,684 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+	<title>tablepedia.com #csv2svg</title>
+<style>
+HTML { border-left: 2em solid #909090; padding: 2em; }
+BODY { line-height: 1.3; margin: 0; background-color: #FFFFFF; color: #000000; padding-right:2em; }
+P { margin-top: 0; text-align: justify; }
+H1 { font: x-large Verdana, sans-serif; text-align: center; letter-spacing: -0.09em; color: #000000; }
+H2 { border-bottom: thin solid #909090; font: normal 1.3em Georgia, serif; }g
+H2 ~ *:not(H2){margin-left:1.5em;}
+H3 { color: #000000; font: medium sans-serif; }
+H3 SPAN { background-color: #E0E0E0; border-right: thin solid #000000; border-bottom: thin solid #000000; padding-right: 0.5ex; }
+H3 EM { color: #000000; font-style: normal; }
+A:link { color: #333333; }
+A:visited { color: #333333; }
+A:active { color: #999999; }
+</style>
+</head>
+<body bgcolor="white" text="black">
+<center>
+
+<!-- Yandex.Metrika counter -->
+	<script type="text/javascript">
+		(function (d, w, c) {
+			(w[c] = w[c] || []).push(function() {
+				try {
+					w.yaCounter42436314 = new Ya.Metrika({
+						id:42436314,
+						clickmap:true,
+						trackLinks:true,
+						accurateTrackBounce:true
+					});
+				} catch(e) { }
+			});
+
+			var n = d.getElementsByTagName("script")[0],
+			s = d.createElement("script"),
+			f = function () { n.parentNode.insertBefore(s, n); };
+			s.type = "text/javascript";
+			s.async = true;
+			s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+			if (w.opera == "[object Opera]") {
+				d.addEventListener("DOMContentLoaded", f, false);
+			} else { f(); }
+		})(document, window, "yandex_metrika_callbacks");
+	</script>
+	<noscript><div><img src="https://mc.yandex.ru/watch/42436314" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+<table>
+<tr>
+<td>
+<br>
+<a href="http://tablepedia.com">
+<br>
+<img src="tablepedia.png" alt="PNG">
+<br>
+http://tablepedia.com
+</a>
+</td>
+<td>
+<h1>tablepedia.com</h1>
+<a href="https://github.com/yaroslav1982/tablepedia">Download this site <br> (click "Clone or download" button on Github page)</a> 
+<br>
+#gold #silver #platinum #palladium #since1900 <br> #dataviz #multiplot #csv2svg #github49 #Graphr
+<br>
+</td>
+<td>
+&nbsp;&nbsp;&nbsp;&nbsp;
+</td>
+<td>
+<a name="a00004"></a>
+<h2><span>March 1, 2020<br>Demographics of China, India, USA, Russia et al. 1980 onward</span></h2>
+</td>
+
+</tr>
+</table>
+
+</center>
+
+
+<script>
+var XYf = 0;                        
+var rangesOfColumnMinAndMax = ''; 
+var a=1;
+var b=42;  
+
+function PLOTbuild()
+{	rangesOfColumnMinAndMax = '';
+	var s = document.getElementById("target").value;
+	var arrayOfTableStrings = s.split("\n");
+	var STRINGelements = arrayOfTableStrings[0].split("\t");
+	var midC = 0;
+	var minC = 0;
+	var maxC = 0;
+	for (var k = 0; k < 11; k++) 
+	{
+		midC=parseFloat(STRINGelements[k]);
+		maxC = midC;
+		minC = maxC;
+		//for (var i = 1; i < arrayOfTableStrings.length - 1; i++)
+		for (var i = a; i < b; i++)
+		{
+			STRINGelements = arrayOfTableStrings[i].split("\t");
+			midC = parseFloat(STRINGelements[k]);
+			if (maxC < midC) 
+				maxC = midC;
+			if (minC > midC) 
+				minC = midC;
+		}
+		rangesOfColumnMinAndMax = rangesOfColumnMinAndMax + minC.toString()+";"+maxC.toString() + ";;   ";
+	}
+	var widthOfVisualization = '700'; var heightOfvisualization = '420'; //ширина и высота виртуального листа бумаги, на котором рисуются графики
+	var ab = document.getElementById('temptext').value; //tableOfPlotParameters
+	var STRINGelements = ab.split("\n");
+	var fourstr=['','','','',''];
+	for (var kstr = 0; kstr < 4; kstr++)
+	{
+		if (STRINGelements.length > kstr && STRINGelements[kstr].length > 5)
+		{
+		var t0 = STRINGelements[kstr].split(" ");
+		fourstr[kstr]=SVGgenerate(t0[0], t0[1], t0[2], t0[3], t0[4], t0[5], t0[6], t0[7], t0[8]);
+		}
+
+		if (STRINGelements.length < (kstr+2)) fourstr[kstr] = '';
+	}
+	var s0 = "<svg version='1.1' width='" + widthOfVisualization + "' height='" + heightOfvisualization + "' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>";
+	document.getElementById('inputTextToSave').value = s0 + fourstr[0] + "\n" + fourstr[1] + "\n" + fourstr[2] + "\n" + fourstr[3] + "\n" + "</svg>";
+	document.getElementById('boldStuff').innerHTML = document.getElementById('inputTextToSave').value;
+}
+
+function SVGgenerate(xcol, ycol, xA4, yA4, yLeft, xDown, xColor, Xis1, Yis1)
+{
+
+//alert(Xis1);
+//alert(Yis1);
+
+
+	var TEXTscaleSTRINGelements = ['0.1', '4'];  // Строка из таблицы, разделённая на элементы 
+	var colNames=["","China", "India", "USA", "Russia", "","Indonesia", "Brazil", "Bangladesh", "Pakistan", "Nigeria"];
+//EUR/USD	GBP/USD	USD/CNY	USD/JPY	Date	USD/BRL	USD/IDR	USD/INR	USD/CHF	USD/RUB
+	var x1 = parseFloat(xcol);
+	var y1 = parseFloat(ycol);
+	var ta = rangesOfColumnMinAndMax.split(";;");
+	var xx330 = '';
+	var yy330 = '';
+	var a0 = ta[x1];
+var mmOX=a0.split(";"); 
+var minX=parseFloat(mmOX[0]);
+var maxX=parseFloat(mmOX[1]);
+	var a0Y = ta[y1];
+var mmOY=a0Y.split(";"); 
+var minY=parseFloat(mmOY[0]);
+var maxY=parseFloat(mmOY[1]);
+	// fitRange превращает диапазон 1951;1999 в 1950;2000, потому что 25 шагов по 2 года
+	ab=fitRange1(minX, maxX, 20);
+	var bc = NUMBERseries(ab) + ';';
+	var de = bc.split(';;'); 
+	var fg = de[0];
+	XYf = 0; 
+	document.getElementById('OXshkala').value = TEXTscale(fg, xA4);
+
+	abY=fitRange1(minY, maxY, 10);
+	var bcY = NUMBERseries(abY) + ';'; //determineEveryNumberOfRange 
+	var deY = bcY.split(';;');
+	var fgY = deY[0];
+	XYf = 1;
+	document.getElementById('OYshkala').value = TEXTscale(fgY, yA4);
+
+if (yLeft == '0')
+	{
+		sus = xA4.split(";"); 
+		xx330 = sus[0];
+	}
+else	
+	{
+		sus = xA4.split(";"); 
+		xx330 = sus[1];
+	}
+	
+if (xDown == '0')
+	{
+		sus = yA4.split(";"); 
+		yy330 = sus[0];
+	}
+else
+	{
+		sus = yA4.split(";"); 
+		yy330 = sus[1];
+	}
+
+	var TEXToxSCALE = document.getElementById('OXshkala').value;
+	var TEXToySCALE = document.getElementById('OYshkala').value;
+	var targ = document.getElementById('target').value;
+	var Tneo = '';
+	var TneoA = '';
+	var Yneo = '';
+	var YneoA = '';
+	
+	var arrayOfTableStringsOX = TEXToxSCALE.split("\n");
+	for (var i = 0; i < arrayOfTableStringsOX.length; i++)
+	{
+		TEXTscaleSTRINGelements = arrayOfTableStringsOX[i].split("\t");
+		Tneo = Tneo + TEXTscaleSTRINGelements[0] + ';'; 
+		TneoA = TneoA + TEXTscaleSTRINGelements[1] + ';';
+	}
+
+	var arrayOfTableStringsOY = TEXToySCALE.split("\n");
+	for (var i = 0; i < arrayOfTableStringsOY.length - 1; i++)	
+	{
+		TEXTscaleSTRINGelements = arrayOfTableStringsOY[i].split("\t");
+		Yneo = Yneo + TEXTscaleSTRINGelements[0] + ';'; 
+		YneoA = YneoA + TEXTscaleSTRINGelements[1] + ';';
+	}
+
+	var arrayOfTableStringsT = targ.split("\n");
+	var xyT = '';
+	var SIMPLEpoly = '';
+	for (var i = a; i < b; i = i + 1)		
+	{
+		TEXTscaleSTRINGelements = arrayOfTableStringsT[i].split("\t"); 
+		xyT = TEXTscaleSTRINGelements[x1] + ';' + TEXTscaleSTRINGelements[y1];
+		SIMPLEpoly = SIMPLEpoly + convert2ValuesTo2Coordinates(xyT, Tneo, Yneo, TneoA, YneoA) + '\n';
+	}
+
+	SIMPLEpoly = SIMPLEpoly.replace(/;/g, ',');
+
+	var fsize = "12"; 
+	var OXred = xColor; ///'red';
+	var sSVG = "<polyline fill='none' stroke='" + OXred + "' stroke-width='1' points='"; 
+	sSVG = sSVG + SIMPLEpoly + "' />";
+	var arrayOfTableStrings = TEXToxSCALE.split("\n");
+	var arrayOfTableStrings2 = TEXToySCALE.split("\n");
+	var OXsh = yy330; 
+	var XXA4 = xA4;
+	var YYA4 = yA4;
+	var DECItemp = 5;
+	sXA4 = XXA4.split(";"); 
+	sYA4 = YYA4.split(";");
+	X1A4 = sXA4[0];
+	X2A4 = sXA4[1];
+	Y1A4 = sYA4[0];
+	Y2A4 = sYA4[1];
+
+	sSVG = sSVG + "\n" + "<polyline fill='none' stroke='#000000' stroke-width='0.5' points='"; 
+	sSVG = sSVG + X1A4 + "," + yy330 + " " + X2A4 + "," + yy330 + "' />";
+	var OYsh = xx330; 
+	sSVG = sSVG + "\n" + "<polyline fill='none' stroke='#000000' stroke-width='0.5' points='" + xx330 + ",";
+	sSVG = sSVG + Y1A4 + " " + xx330 + "," + Y2A4 + "' />";
+
+if (Xis1 == '1')
+{
+
+	for (var i = 0; i < arrayOfTableStrings.length; i++)	
+	{
+		TEXTscaleSTRINGelements = arrayOfTableStrings[i].split("\t");
+		var result1 = TEXTscaleSTRINGelements[2].replace(/\s+/g, '')
+		if (result1 == '')
+			DECItemp = 5;
+		else
+			DECItemp = 10;
+		var nOXsh1 = parseFloat(yy330) + DECItemp;
+		var OXsh1 = nOXsh1.toString(); 
+		var nOYsh1 = parseFloat(xx330) + 20;
+		var nOYsh2 = parseFloat(xx330) - 5;
+		var OYsh1 = nOYsh1.toString();
+		var OYshS = nOYsh2.toString(); 
+		var nOXsh2 = parseFloat(TEXTscaleSTRINGelements[1]) - 4;
+		var OXsh2 = nOXsh2.toString();
+		var nOYsh3 = parseFloat(OXsh1) + 8;
+		var OYsh3 = nOYsh3.toString();
+		sSVG = sSVG + "\n" + "<polyline fill='none' stroke='#000000' stroke-width='0.5' points='"; // textOfSVGfile
+		sSVG = sSVG + TEXTscaleSTRINGelements[1] + "," + yy330 + " " + TEXTscaleSTRINGelements[1] + "," + OXsh1 + "' />";
+		sSVG = sSVG + "\n" + "<text x='" + OXsh2 + "' y='" + OYsh3 + 
+			"' fill='black' font-family='Arial' font-size='" + fsize + "'>" + TEXTscaleSTRINGelements[2] + "</text>";
+	}
+}
+
+if (Yis1 == '1')
+{
+	for (var i = 0; i < arrayOfTableStrings2.length; i++)
+	{
+		TEXTscaleSTRINGelements = arrayOfTableStrings2[i].split("\t"); 
+		result1 = TEXTscaleSTRINGelements[2].replace(/\s+/g, '');
+		if (result1 == '')
+			DECItemp = 5;
+		else
+			DECItemp = 10;
+		nOXsh1 = parseFloat(yy330) + DECItemp;
+		OXsh1 = nOXsh1.toString();
+		nOYsh1 = parseFloat(xx330) + DECItemp;
+		OYsh1 = nOYsh1.toString();
+		sSVG = sSVG + "\n" + "<polyline fill='none' stroke='#000000' stroke-width='0.5' points='" + xx330 + ",";
+		sSVG = sSVG + TEXTscaleSTRINGelements[1] + " " + OYsh1 + "," + TEXTscaleSTRINGelements[1] + "' />";
+		if (i == (arrayOfTableStrings2.length - 1))
+			TEXTscaleSTRINGelements[2] = colNames[ycol];
+		sSVG = sSVG + "\n" + "<text x='" + OYsh1 + "' y='" + TEXTscaleSTRINGelements[1] + "' fill='" + xColor + 
+			"' font-family='Arial' font-size='" + fsize + "'>" + TEXTscaleSTRINGelements[2] + "</text>";
+	} 
+}
+
+
+	return sSVG;
+}
+
+// Построение шкалы от точки A до точки B на листе бумаги,
+// при этом на ней делается разметка от x1 до x2 или от y1 до y2
+function TEXTscale(x1xN, min4max4)
+{
+	// Рекомендуется описание переменных
+	var pieces = x1xN.split(";"); //partsOfX1XnRange
+	var pieces2 = min4max4.split(";"); //partsOfXA41XA4nRange
+	var qx = NUMBERchars(x1xN, ";");
+	var qy = NUMBERchars(min4max4, ";");
+	var yleft = parseFloat(pieces2[0]);
+	var yright = parseFloat(pieces2[1]);
+	var sm3 = "";
+	var sm4 = "";
+	var xval = 0;
+	var xSt = 0;
+	var smpp;
+	var stepX = document.getElementById("xStep").value;
+	if (XYf == 1)
+		stepX = document.getElementById("yStep").value;
+	xSt = parseFloat(stepX);
+	for (var j = 0; j < qx; j = j + xSt)
+	{
+		j = NUMBERround(j, 3);
+		var i = Math.floor(j); 
+		var jpp = j - i;
+		smart2 = NUMBERpropo(parseFloat(pieces[0]), parseFloat(pieces[qx]), parseFloat(pieces[i]), 
+			parseFloat(pieces2[0]), parseFloat(pieces2[1]));  // XA4amongXA41XA4n
+		smpp = NUMBERpropo(0, 1, jpp, parseFloat(pieces[i]), parseFloat(pieces[i + 1]));
+		smpp = NUMBERround(smpp, 7);
+		smart2 = NUMBERpropo(0, 1, jpp, parseFloat(pieces2[i]), parseFloat(pieces2[i + 1]));
+		if (smart2 != pieces2[1])
+		{
+			sm3 = sm3 + smpp; sm3 = sm3 + "\t";
+			smart2 = NUMBERpropo(parseFloat(pieces[0]), parseFloat(pieces[qx]), smpp, parseFloat(pieces2[0]), parseFloat(pieces2[1]));
+			smart2 = NUMBERround(smart2, 3);
+			if (smart2 == "0")
+				smart2 = "0.0001"; 
+			sm3 = sm3 + smart2;
+			xval = parseFloat(smart2);
+			if (jpp == 0)
+				sm4 = smpp;
+			else
+				sm4 = " "; 
+
+			sm3 = sm3 + "\t" + sm4 + "\n";
+		}
+	}
+	coo = parseFloat(pieces2[1]);// Предохранитель от 599.99999999999999999
+	coo = NUMBERround(coo, 4);
+	if (coo == 0)
+		coo = 0.0001;
+	sm3 = sm3 + parseFloat(pieces[qx])+"\t"+coo+"\t"+parseFloat(pieces[qx]);
+	return sm3;
+}
+
+// Превращает пару значений из столбцов таблицы в точку на листе бумаги xA4;yA4 
+function convert2ValuesTo2Coordinates(xy1, x1, y1, xa4, ya4)
+{
+	var srav = xy1.split(";");
+	var d0 = convert1ValueTo1Coordinate(x1, xa4, srav[0]);
+	var h0 = convert1ValueTo1Coordinate(y1, ya4, srav[1]);
+	var gett = d0 + ";" + h0; 
+	return gett;
+}
+
+// Делает то же самое, что convert2ValuesTo2Coordinates, только либо для одного значения x, либо для одного значения y
+function convert1ValueTo1Coordinate(VECTOR1, VECTOR2, xVECTOR1)
+{
+	var lastChar1 = VECTOR1.substr(VECTOR1.length - 1); // => "1"
+	var lastChar2 = VECTOR2.substr(VECTOR2.length - 1); // => "1"
+	//1;2;3;4;5 - начальная ось OX ($VECTOR1)
+	//10;20;30;40;50 - конечный интервал на листе ($VECTOR2)
+	var pieces = VECTOR1.split(";"); 
+	var pieces2 = VECTOR2.split(";");
+	var xleft = parseFloat(pieces[0]);
+	var q = NUMBERchars(VECTOR1, ";");
+	if (lastChar1 == ';' || lastChar2 == ';')
+		q = q - 1;
+	var xright = parseFloat(pieces[q]); 
+	var smart2 = 0;
+	for (var i = 0; i < q; i++)
+	{
+		var pr2 = (xVECTOR1 >= parseFloat(pieces[i]) && xVECTOR1 <= parseFloat(pieces[i + 1]) || 
+			xVECTOR1 <= parseFloat(pieces[i]) && xVECTOR1 >= parseFloat(pieces[i + 1]));
+		if (pr2 == true)
+		{
+			smart2 = NUMBERpropo(parseFloat(pieces[i]), parseFloat(pieces[i + 1]), xVECTOR1, 
+				parseFloat(pieces2[i]), parseFloat(pieces2[i + 1]));
+		}
+	}
+	if (xVECTOR1 < xleft && xleft < xright || xVECTOR1 > xleft && xleft > xright)
+	{
+		smart2 = NUMBERpropo(parseFloat(pieces[0]), parseFloat(pieces[1]), xVECTOR1, 
+			parseFloat(pieces2[0]), parseFloat(pieces2[1]));
+	}
+	if ((xVECTOR1 > xleft && xVECTOR1 > xright && xleft < xright) || (xVECTOR1 < xleft && xVECTOR1 > xright && xleft > xright))
+	{
+		smart2 = NUMBERpropo(parseFloat(pieces[q - 1]), parseFloat(pieces[q]), 
+			xVECTOR1, parseFloat(pieces2[q - 1]), parseFloat(pieces2[q]));
+	}
+	return smart2;
+}
+
+// NumberPropo обслуживает convert1ValueTo1Coordinate, находит пропорцию
+function NUMBERpropo(x1, x2, xAmong, min4, max4)
+{
+	var part = (xAmong - x1) / (x2 - x1); 
+	return (max4 - min4) * part + min4; 
+}
+
+//находит количество ; в строке
+function NUMBERchars(qString, charInside)
+{
+	var j = 0; var rest = "";
+	for (var x = 0; x <= qString.length; x++)
+	{
+		rest = qString.substr(x, charInside.length);
+		if (rest == charInside) 
+			j++; 
+	}
+	return j;
+}
+
+//округляет число
+function NUMBERround(x, n)
+{
+	if (isNaN(x) || isNaN(n)) return 0;
+	var m = Math.pow(10, n); return Math.round(x * m) / m;
+}
+
+
+//строит числа в диапазоне о n1 до n2; 
+function NUMBERseries(fts)
+{
+	var FromToStep = fts.split(";");
+	var sFrom = FromToStep[0]; var vFrom = parseFloat(sFrom);
+	var sTo = FromToStep[1]; var vTo = parseFloat(sTo);
+	var sStep = FromToStep[3]; var vStep = parseFloat(sStep); 
+	var rr = "";
+	vTo = vTo + vStep;
+	for (var x = vFrom; x < vTo; x = x + vStep)
+	{
+		rr = rr + NUMBERfloat(x, vStep) + ";"
+	}
+	return rr;
+}
+
+// Округляет диапазон чисел
+function NUMBERfloat(xbig, xsmall)
+{
+	vmax = Math.floor(xbig / xsmall + 0.99) * xsmall;
+	var ni = xsmall.length;
+	vmax = vmax.toFixed(10); 
+	vmax = vmax * 1;
+	smax = vmax.toString();
+	if (Math.abs(vmax) < 0.001) 
+		smax = vmax.toExponential(1);
+	if (vmax == 0)
+		smax = "0";
+	smax = smax.replace('.0e', 'e');
+	return smax;
+}
+
+// Строит числа в диапазоне от n1 до n2 с шагом, кратным 1/2/5
+function fitRange1(a, b, nLines)
+{
+	a = Math.round(a * 100000000000000) / 100000000000000;
+	b = Math.round(b * 100000000000000) / 100000000000000;
+	var xr = Math.abs(b - a) / nLines;
+	var mimi = Math.abs(a / xr) / nLines * 5;
+	if (mimi < 1)
+	{
+		a = 0; 
+		xr = Math.abs(b - a) / nLines;
+	}
+	var loga = Math.log10(xr);
+	var inta = Math.floor(loga);
+	var deca = Math.pow(10, inta); 
+	var dd = deca;
+	var mi1 = Math.floor(a / deca);
+	var ma1 = Math.ceil(b / deca);
+	var iFlag = 0;
+	if ((ma1 - mi1) > (nLines * 2))
+	{
+		deca = deca * 5;
+		mi1 = Math.floor(a / deca);
+		ma1 = Math.ceil(b / deca); 
+		iFlag = iFlag + 1;
+	}
+	if ((ma1 - mi1) > (nLines))
+	{
+		deca = deca * 2;
+		mi1 = Math.floor(a / deca);
+		ma1 = Math.ceil(b / deca); 
+		iFlag = iFlag - 1;
+	}
+	if (iFlag == 0)
+		dd = deca / 5;
+	var mi2 = mi1 * deca; mi2 = Math.round(mi2 * 100000000000000) / 100000000000000; 
+	var ma2 = ma1 * deca; ma2 = Math.round(ma2 * 100000000000000) / 100000000000000;
+	var s4 = mi2.toString() + ";" + ma2.toString() + ";;" + deca.toString() + ";" + dd.toString(); 
+	return s4;
+}
+
+
+// Настройки графиков зависят от нажатых чекбоксов
+function myFunction()
+{
+var ttcc=[document.getElementById("myCh1").checked, document.getElementById("myCh2").checked, document.getElementById("myCh3").checked, document.getElementById("myCh4").checked, document.getElementById("myCh5").checked, document.getElementById("myCh6").checked, document.getElementById("myCh7").checked, document.getElementById("myCh8").checked, document.getElementById("myCh9").checked];
+	var t1 = ""; var order = 0; var czero=0;
+	var FOUR = ['20;600 200;10 0 0 black 1 1', '20;600 200;10 1 1 grey 1 1',
+		'20;600 400;210 0 0 black 1 1', '20;600 400;210 1 1 gray 0 1'];
+for (var azero = 0; azero < 9; azero++)
+	{
+czero=czero+1;
+if (azero == 4) czero=czero+1;
+var szero=czero.toString();
+	if (ttcc[azero] == true && order < 4)
+	{
+		t1 = t1 + "5 "+szero+" " + FOUR[order] + "\n"; 
+		order++;
+	}
+ }
+	document.getElementById("temptext").value = t1;
+	PLOTbuild();
+}
+
+
+function destroyClickedElement(event)
+{
+	document.body.removeChild(event.target);
+}
+// Сохранить svg
+function saveTextAsFile()
+{
+	var textToSave = document.getElementById("inputTextToSave").value;
+	var textToSaveAsBlob = new Blob([textToSave], { type: "text/plain" });
+	var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);
+	var fileNameToSaveAs = 'Plot.svg';  //$('#inputFileNameToSaveAs').val() ? $('#inputFileNameToSaveAs').val() + '.svg' :'Plot.svg';
+	var downloadLink = document.createElement("a");
+	downloadLink.download = fileNameToSaveAs;
+	downloadLink.innerHTML = "Download File";
+	downloadLink.href = textToSaveAsURL;
+	downloadLink.onclick = destroyClickedElement;
+	downloadLink.style.display = "none";
+	document.body.appendChild(downloadLink);
+	downloadLink.click();
+}
+// Сохранить таблицу
+function saveTABLEAsFile()
+{
+	var textToSave = document.getElementById("target").value;
+	var textToSaveAsBlob = new Blob([textToSave], { type: "text/plain" });
+	var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);
+	var fileNameToSaveAs = 'Table.txt';  //$('#inputFileNameToSaveAs').val() ? $('#inputFileNameToSaveAs').val() + '.svg' :'Plot.svg';
+	var downloadLink = document.createElement("a");
+	downloadLink.download = fileNameToSaveAs;
+	downloadLink.innerHTML = "Download File";
+	downloadLink.href = textToSaveAsURL;
+	downloadLink.onclick = destroyClickedElement;
+	downloadLink.style.display = "none";
+	document.body.appendChild(downloadLink);
+	downloadLink.click();
+}
+</script>
+
+</head>
+<body onload="PLOTbuild()"> 
+Scale division OX/OY: <textarea rows="1" cols="5" class="input_type" id="xStep"  name="xStep">0.5</textarea>
+/
+<textarea rows="1" cols="5" class="input_type" id="yStep"  name="yStep">0.2</textarea>
+<input type="button" value="1980-2020" onclick="a=1; b=5444; PLOTbuild()">
+
+<input type="button" value="Save SVG" onclick="saveTextAsFile()">
+<input type="button" value="Save TABLE" onclick="saveTABLEAsFile()">
+
+
+<br>
+Population:
+<br>
+<input type="checkbox" id="myCh1" onclick="myFunction()" checked> China
+<input type="checkbox" id="myCh2" onclick="myFunction()" checked> India
+<input type="checkbox" id="myCh3" onclick="myFunction()" checked> USA
+<input type="checkbox" id="myCh4" onclick="myFunction()" checked> Russia
+<br>
+<input type="checkbox" id="myCh5" onclick="myFunction()"> Indonesia
+<input type="checkbox" id="myCh6" onclick="myFunction()"> Brazil
+<input type="checkbox" id="myCh7" onclick="myFunction()"> Bangladesh
+<input type="checkbox" id="myCh8" onclick="myFunction()"> Pakistan
+<input type="checkbox" id="myCh9" onclick="myFunction()"> Nigeria
+<br>
+
+
+<p id="text" style="display:none">Checkbox is CHECKED!</p>
+
+<b id="boldStuff" style="color:transparent;">SVG</b><textarea id="inputTextToSave" class="input_type" style="display:none"></textarea>
+<br><textarea class="input_type" id="temptext" name="temptext" cols="80" rows="3"  style="display:none">5 1 20;600 200;10 0 0 black 1 1
+5 2 20;600 200;10 1 1 gray 1 1
+5 3 20;600 400;210 0 0 black 1 1
+5 4 20;600 400;210 1 1 grey 0 1
+</textarea>
+<br><textarea class="input_type" id="target" name="target" cols="80" rows="12">
+Year China	India	USA	Russia	Indones. Brazil Bangladesh Pakistan Nigeria					
+1980	981	697	227  	138	1980	147	121	81	78	73
+1981	994	716	229  	139	1981	151	124	84	81	75
+1982	1009	733	232  	140	1982	155	127	86	83	77
+1983	1023	750	234  	141	1983	159	130	88	86	79
+1984	1037	767	236  	142	1984	163	133	90	89	81
+1985	1051	782	238  	143	1985	166	136	93	92	83
+1986	1067	802	240  	144	1986	170	139	95	95	84
+1987	1084	820	242  	145	1987	173	142	98	98	85
+1988	1102	838	244  	147	1988	176	144	101	101	86
+1989	1119	856	247  	147	1989	179	147	103	104	87
+1990	1135	874	250  	148	1990	182	150	106	108	88
+1991	1151	892	253  	148	1991	185	153	109	111	89
+1992	1165	910	257  	149	1992	188	155	112	114	93
+1993	1178	928	260  	148	1993	191	157	115	117	97
+1994	1192	946	263  	148	1994	194	159	117	120	101
+1995	1205	964	266  	148	1995	197	162	119	123	105
+1996	1218	983	269  	148	1996	200	165	120	126	109
+1997	1230	1001	273  	148	1997	203	168	123	129	112
+1998	1242	1018	276  	148	1998	206	171	125	132	115
+1999	1253	1036	279  	147	1999	209	173	127	135	118
+2000	1263	1054	282  	147	2000	212	175	129	137	122
+2001	1272	1071	285  	146	2001	215	178	132	139	125
+2002	1280	1089	288  	145	2002	218	181	135	143	129
+2003	1288	1106	290  	145	2003	221	183	138	147	133
+2004	1296	1126	293  	144	2004	224	185	140	150	136
+2005	1304	1140	296  	144	2005	227	187	143	154	139
+2006	1311	1162	299  	143	2006	230	189	145	157	143
+2007	1318	1180	302  	143	2007	233	191	147	160	147
+2008	1325	1197	304  	143	2008	236	193	149	163	151
+2009	1331	1214	307  	143	2009	239	195	150	167	155
+2010	1338	1231	309  	143	2010	242	197	152	171	159
+2011	1344	1247	312  	143	2011	245	199	154	175	162
+2012	1351	1263	314  	143	2012	248	201	155	179	168
+2013	1357	1279	316  	144	2013	251	203	156	183	174
+2014	1364	1294	319  	146	2014	254	205	157	186	178
+2015	1371	1309	321  	146	2015	258	207	158	189	182
+2016	1379	1324	323  	147	2016	261	208	159	193	186
+2017	1390	1338	326  	147	2017	264	209	160	197	191
+2018	1397	1351	327  	147	2018	266	210	161	201	196
+2019	1405	1364	329  	147	2019	270	211	162	205	200
+2020	1412	1375	331  	147	2020	273	212	164	210	205
+</textarea>
+<br>
+<textarea name="OXshkala" id="OXshkala" class="input_type" style="display:none"></textarea>
+<textarea name="OYshkala" class="input_type" id="OYshkala" style="display:none"></textarea>
+<br>
+Source:
+<br>
+<a href="https://www.google.ru/publicdata/explore?ds=d5bncppjof8f9_&met_y=sp_pop_totl&idim=country:IND:CHN&hl=ru&dl=ru">https://www.google.ru/publicdata/explore?ds=d5bncppjof8f9_&met_y=sp_pop_totl&idim=country:IND:CHN&hl=ru&dl=ru</a>
+<br>
+<a href="https://www.internetworldstats.com/stats8.htm">https://www.internetworldstats.com/stats8.htm</a>
+<br>
+<a href="https://en.wikipedia.org/wiki/Demographics_of_India">https://en.wikipedia.org/wiki/Demographics_of_India</a>
+<br>
+<a href="https://en.wikipedia.org/wiki/Demographics_of_China">https://en.wikipedia.org/wiki/Demographics_of_China</a>
+<br>
+<a href="https://en.wikipedia.org/wiki/Demographics_of_Russia">https://en.wikipedia.org/wiki/Demographics_of_Russia</a>
+<br>
+<a href="https://en.wikipedia.org/wiki/Demographics_of_USA">https://en.wikipedia.org/wiki/Demographics_of_USA</a>
+<br>
+<a href="https://en.wikipedia.org/wiki/Demographics_of_Brazil">https://en.wikipedia.org/wiki/Demographics_of_Brazil</a>
+<br>
+<a href="https://en.wikipedia.org/wiki/Demographics_of_Indonesia">https://en.wikipedia.org/wiki/Demographics_of_Indonesia</a>
+<br>
+<a href="https://en.wikipedia.org/wiki/Demographics_of_Pakistan">https://en.wikipedia.org/wiki/Demographics_of_Pakistan</a>
+<br>
+<a href="https://en.wikipedia.org/wiki/Demographics_of_Bangladesh">https://en.wikipedia.org/wiki/Demographics_of_Bangladesh</a>
+<br>
+<a href="https://en.wikipedia.org/wiki/Demographics_of_Nigeria">https://en.wikipedia.org/wiki/Demographics_of_Nigeria</a>
+
+<br>
+<br>
+<p class=smallText><a href="http://tablepedia.com/index.html#a00004">Permanent link of this article</a></p>
+</body>
+</html>
