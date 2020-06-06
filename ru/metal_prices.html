@@ -61,10 +61,12 @@ http://tablepedia.com
 </td>
 <td><br>
 
+<h3 style="background-color: rgb(253, 215, 228); ">
+<a href="covid-19.html">Заболеваемость коронавирусом (количество заражений и смертей) с 31.12.2019</a>
+</h3>
+
 <h3>
 <span>
-<a href="covid-19.html">Заболеваемость коронавирусом (количество заражений и смертей) с 31.12.2019 г.</a>
-<br>
 <a href="metal_prices-rub.html">Цены на золото, серебро, платину и палладий с 1999 года (в рублях за грамм и долларах за унцию),
 а также курсы доллара и евро по курсу ЦБ РФ.</a>
 <br>
@@ -74,10 +76,12 @@ http://tablepedia.com
 
 </td>
 <td>
-<br>
-<a href="old.html">English version</a>
-<br>
-<a href="https://github.com/yaroslav1982/tablepedia">Download this site (ZIP)</a> 
+<h3><span><a href="http://tablepedia.com/en/metal_prices.html">EN</a></span> | RU </h3>
+<a href="https://github.com/yaroslav1982/tablepedia.com">
+<h1>Download this site from GitHub(ZIP)</h1>
+<img src="github.png" alt="PNG">
+</a>
+
 </td>
 </tr>
 </table>
@@ -317,15 +321,27 @@ function TEXTscale(x1xN, min4max4)
 	var qy = NUMBERchars(min4max4, ";");
 	var yleft = parseFloat(pieces2[0]);
 	var yright = parseFloat(pieces2[1]);
+var scFirst = parseFloat(pieces[0]);
+var scSecond = parseFloat(pieces[1]);
+var scD=scSecond-scFirst;
+var sscD=scD.toString();
+var n = sscD.search("2");
+var sN = n.toString();
+
 	var sm3 = "";
 	var sm4 = "";
 	var xval = 0;
 	var xSt = 0;
 	var smpp;
 	var stepX = document.getElementById("xStep").value;
-	if (XYf == 1)
-		stepX = document.getElementById("yStep").value;
+
+//if (XYf == 1)
+//		stepX = document.getElementById("yStep").value;
+//2020-05
+
+//if (XYf == 1 && n >= 0) alert(sscD);	
 	xSt = parseFloat(stepX);
+if (XYf == 1 && n >= 0) xSt = 0.5;	
 	for (var j = 0; j < qx; j = j + xSt)
 	{
 		j = NUMBERround(j, 3);
@@ -516,8 +532,8 @@ function myFunction()
 {
 var ttcc=[document.getElementById("myCh1").checked, document.getElementById("myCh2").checked, document.getElementById("myCh3").checked, document.getElementById("myCh4").checked, document.getElementById("myCh5").checked, document.getElementById("myCh6").checked, document.getElementById("myCh7").checked, document.getElementById("myCh8").checked, document.getElementById("myCh9").checked];
 	var t1 = ""; var order = 0; var czero=0;
-	var FOUR = ['20;600 200;10 0 0 black 1 1', '20;600 200;10 1 1 grey 1 1',
-		'20;600 400;210 0 0 black 1 1', '20;600 400;210 1 1 gray 0 1'];
+	var FOUR = ['20;600 200;10 0 0 black 1 1', '20;600 200;10 1 1 red 1 1',
+		'20;600 400;210 0 0 black 1 1', '20;600 400;210 1 1 red 0 1'];
 for (var azero = 0; azero < 9; azero++)
 	{
 czero=czero+1;
@@ -577,9 +593,9 @@ function saveTABLEAsFile()
 
 <h2><span>Стоимость золота, серебра, платины и палладия в долларах за унцию (USD/OZ) с 1900 г.</span></h2>
 
-Вспомогательные деления OX/OY: <textarea rows="1" cols="5" class="input_type" id="xStep"  name="xStep">0.2</textarea>
-/
-<textarea rows="1" cols="5" class="input_type" id="yStep"  name="yStep">0.2</textarea>
+<textarea rows="1" cols="5" class="input_type" id="xStep" name="xStep" style="display:none">0.2</textarea>
+<textarea rows="1" cols="5" class="input_type" id="yStep" name="yStep" style="display:none">0.2</textarea>
+
 <input type="button" value="1900-2020" onclick="a=1; b=4330; PLOTbuild()">
 <input type="button" value="1900-1970" onclick="a=1831; b=4330; PLOTbuild()">
 <input type="button" value="1970-2020" onclick="a=1; b=1801; PLOTbuild()">
@@ -607,12 +623,17 @@ function saveTABLEAsFile()
 
 <b id="boldStuff" style="color:transparent;">SVG</b><textarea id="inputTextToSave" class="input_type" style="display:none"></textarea>
 <br><textarea class="input_type" id="temptext" name="temptext" cols="80" rows="3"  style="display:none">5 1 20;600 200;10 0 0 black 1 1
-5 2 20;600 200;10 1 1 gray 1 1
+5 2 20;600 200;10 1 1 red 1 1
 5 3 20;600 400;210 0 0 black 1 1
-5 4 20;600 400;210 1 1 grey 0 1
+5 4 20;600 400;210 1 1 red 0 1
 </textarea>
 <br><textarea class="input_type" id="target" name="target" cols="120" rows="12">
 Дата Золото Серебро Платина Палладий Золото/Серебро Золото/Платина Золото/Палладий Платина/Серебро Палладий/Серебро
+01.06.2020	1740	18.05	835	1930	2020.417	96.40	2.08	0.90	46.26	106.93
+20.05.2020	1735	17.12	806	1991	2020.377	101.34	2.15	0.87	47.08	116.30
+09.05.2020	1704	14.98	758	1810	2020.348	113.75	2.25	0.94	50.60	120.83
+01.05.2020	1717	15.33	778	1991	2020.339	112.00	2.21	0.86	50.75	129.88
+21.04.2020	1685	15.15	781	2165	2020.308	111.22	2.16	0.78	51.55	142.90
 10.04.2020	1662	15.17	736	2180	2020.266	109.56	2.26	0.76	48.52	143.7
 28.03.2020	1621	14.42	745	2370	2020.236	112.41	2.18	0.68	51.66	164.36
 20.03.2020	1481	12.42	607	1593	2020.218	119.24	2.44	0.93	48.87	128.26
