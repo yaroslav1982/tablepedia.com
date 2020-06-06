@@ -17,6 +17,7 @@ A:visited { color: #333333; }
 A:active { color: #999999; }
 </style>
 </head>
+
 <body bgcolor="white" text="black" onload="ChangeSign();PLOTbuild()">
 <center>
 
@@ -72,10 +73,12 @@ http://tablepedia.com
 
 </td>
 <td>
-<br>
-<a href="old.html">English version</a>
-<br>
-<a href="https://github.com/yaroslav1982/tablepedia">Download this site (ZIP)</a> 
+<h3> EN | <span><a href="http://tablepedia.com/ru/covid-19.html">RU</a></span> </h3>
+<a href="https://github.com/yaroslav1982/tablepedia.com">
+<h1>Download this site from GitHub(ZIP)</h1>
+<img src="github.png" alt="PNG">
+</a>
+
 </td>
 </tr>
 </table>
@@ -159,7 +162,7 @@ var mmOY=a0Y.split(";");
 var minY=parseFloat(mmOY[0]);
 var maxY=parseFloat(mmOY[1]);
 	// fitRange converts 1951;1999 into 1950;2000 because of 25 steps for 2 years
-	ab=fitRange1(minX, maxX, 30);
+	ab=fitRange1(minX, maxX, 35);
 	var bc = NUMBERseries(ab) + ';';
 	var de = bc.split(';;'); 
 	var fg = de[0];
@@ -309,6 +312,12 @@ Xn = Xn-30;
 Xvis = Xn.toString();
 }
 
+if (Xn > 31 && Xprov > 151) 
+{
+Xn = Xn-31;
+Xvis = Xn.toString();
+}
+
 if (Xn > 0) 
 {
 Xvis = Xn.toString();
@@ -362,15 +371,27 @@ function TEXTscale(x1xN, min4max4)
 	var qy = NUMBERchars(min4max4, ";");
 	var yleft = parseFloat(pieces2[0]);
 	var yright = parseFloat(pieces2[1]);
+var scFirst = parseFloat(pieces[0]);
+var scSecond = parseFloat(pieces[1]);
+var scD=scSecond-scFirst;
+var sscD=scD.toString();
+var n = sscD.search("2");
+var sN = n.toString();
+
 	var sm3 = "";
 	var sm4 = "";
 	var xval = 0;
 	var xSt = 0;
 	var smpp;
 	var stepX = document.getElementById("xStep").value;
-	if (XYf == 1)
-		stepX = document.getElementById("yStep").value;
+
+//if (XYf == 1)
+//		stepX = document.getElementById("yStep").value;
+//2020-05
+
+//if (XYf == 1 && n >= 0) alert(sscD);	
 	xSt = parseFloat(stepX);
+if (XYf == 1 && n >= 0) xSt = 0.5;	
 	for (var j = 0; j < qx; j = j + xSt)
 	{
 		j = NUMBERround(j, 3);
@@ -717,8 +738,8 @@ if (document.getElementById("cCase").checked && document.getElementById("cDeath"
 var uuu=ttt.split(",");
 //alert(uuu[1]);
 
-	var FOUR2 = ['20;600 200;10 0 0 black 1 1', '20;600 200;10 1 1 grey 1 1',
-		'20;600 400;210 0 0 black 1 1', '20;600 400;210 1 1 gray 0 1'];
+	var FOUR2 = ['20;600 200;10 0 0 black 1 1', '20;600 200;10 1 1 red 1 1',
+		'20;600 400;210 0 0 black 1 1', '20;600 400;210 1 1 red 0 1'];
 
 var FIVE = "11 "+uuu[0]+" "+FOUR2[0]+"\n"+"11 "+uuu[1]+" "+FOUR2[1]+"\n"+"11 "+uuu[2]+" "+FOUR2[2]+"\n"+"11 "+uuu[3]+" "+FOUR2[3]+"\n";
 
@@ -737,10 +758,10 @@ var FIVE = "11 "+uuu[0]+" "+FOUR2[0]+"\n"+"11 "+uuu[1]+" "+FOUR2[1]+"\n"+"11 "+u
 <h2><span>Top 20 countries by cases of COVID-19 (thousand people) since 31.12.2019</span></h2>
 
 
-Scale division of OX/OY: <textarea rows="1" cols="5" class="input_type" id="xStep"  name="xStep">0.2</textarea>
-/
-<textarea rows="1" cols="5" class="input_type" id="yStep"  name="yStep">0.2</textarea>
-<input type="button" value="Refresh" onclick="ChangeSign();PLOTbuild()">
+<textarea rows="1" cols="5" class="input_type" id="xStep" name="xStep" style="display:none">0.2</textarea>
+<textarea rows="1" cols="5" class="input_type" id="yStep" name="yStep" style="display:none">0.2</textarea>
+
+<input type="button" value="Refresh" onclick="ChangeSign();PLOTbuild()"  style="display:none">
 
 <input type="button" value="Save picture as SVG" onclick="saveTextAsFile()">
 <input type="button" value="Save table as TXT" onclick="saveTABLEAsFile()">
@@ -752,84 +773,101 @@ To see the values for four countries, you only need to click on the checkbox for
 <SELECT name="SM01" id="SM01" onchange="ChangeSelect();ChangeSign();PLOTbuild()">
 <OPTION SELECTED VALUE="1">USA</OPTION>
 <OPTION VALUE="3">Russia</OPTION>
-<OPTION VALUE="5">France</OPTION>
-<OPTION VALUE="7">Spain</OPTION>
-<OPTION VALUE="9">Italy</OPTION>
-
-<OPTION VALUE="12">Germany</OPTION>
-<OPTION VALUE="14">Turkey</OPTION>
-<OPTION VALUE="16">Iran</OPTION>
-
-<OPTION VALUE="18">China</OPTION>
-<OPTION VALUE="20">UK</OPTION>
-
-<OPTION VALUE="22">India</OPTION>
 <OPTION VALUE="24">Brazil</OPTION>
-<OPTION VALUE="26">Peru</OPTION>
-<OPTION VALUE="28">Canada</OPTION>
-<OPTION VALUE="30">Saudi Ar.</OPTION>
+<OPTION VALUE="20">UK</OPTION>
+<OPTION VALUE="100">----------------</OPTION>
+
 <OPTION VALUE="32">Belgium</OPTION>
-<OPTION VALUE="34">Mexico</OPTION>
+<OPTION VALUE="28">Canada</OPTION>
 <OPTION VALUE="36">Chile</OPTION>
-<OPTION VALUE="38">Pakistan</OPTION>
+<OPTION VALUE="18">China</OPTION>
+<OPTION VALUE="5">France</OPTION>
+<OPTION VALUE="12">Germany</OPTION>
+<OPTION VALUE="22">India</OPTION>
+<OPTION VALUE="16">Iran</OPTION>
+<OPTION VALUE="9">Italy</OPTION>
+<OPTION VALUE="34">Mexico</OPTION>
 <OPTION VALUE="40">Netherlands</OPTION>
+<OPTION VALUE="38">Pakistan</OPTION>
+<OPTION VALUE="26">Peru</OPTION>
+<OPTION VALUE="30">Saud.Ar.</OPTION>
+<OPTION VALUE="7">Spain</OPTION>
+<OPTION VALUE="14">Turkey</OPTION>
 </SELECT>
 
 <SELECT name="SM02" id="SM02" onchange="ChangeSelect();ChangeSign();PLOTbuild()">
-<OPTION  VALUE="1">США</OPTION>
+<OPTION  VALUE="1">USA</OPTION>
 <OPTION SELECTED VALUE="3">Russia</OPTION>
-<OPTION VALUE="5">France</OPTION>
-<OPTION VALUE="7">Spain</OPTION>
-<OPTION VALUE="9">Italy</OPTION>
-
-<OPTION VALUE="12">Germany</OPTION>
-<OPTION VALUE="14">Turkey</OPTION>
-<OPTION VALUE="16">Iran</OPTION>
-
-<OPTION VALUE="18">China</OPTION>
-<OPTION VALUE="20">UK</OPTION>
-
-<OPTION VALUE="22">India</OPTION>
 <OPTION VALUE="24">Brazil</OPTION>
-<OPTION VALUE="26">Peru</OPTION>
-<OPTION VALUE="28">Canada</OPTION>
-<OPTION VALUE="30">Saudi Ar.</OPTION>
-<OPTION VALUE="32">Belgium</OPTION>
-<OPTION VALUE="34">Mexico</OPTION>
-<OPTION VALUE="36">Chile</OPTION>
-<OPTION VALUE="38">Pakistan</OPTION>
-<OPTION VALUE="40">Netherlands</OPTION>
+<OPTION VALUE="20">UK</OPTION>
+<OPTION VALUE="100">----------------</OPTION>
 
+<OPTION VALUE="32">Belgium</OPTION>
+<OPTION VALUE="28">Canada</OPTION>
+<OPTION VALUE="36">Chile</OPTION>
+<OPTION VALUE="18">China</OPTION>
+<OPTION VALUE="5">France</OPTION>
+<OPTION VALUE="12">Germany</OPTION>
+<OPTION VALUE="22">India</OPTION>
+<OPTION VALUE="16">Iran</OPTION>
+<OPTION VALUE="9">Italy</OPTION>
+<OPTION VALUE="34">Mexico</OPTION>
+<OPTION VALUE="40">Netherlands</OPTION>
+<OPTION VALUE="38">Pakistan</OPTION>
+<OPTION VALUE="26">Peru</OPTION>
+<OPTION VALUE="30">Saud.Ar.</OPTION>
+<OPTION VALUE="7">Spain</OPTION>
+<OPTION VALUE="14">Turkey</OPTION>
 </SELECT>
 
 <SELECT name="SM03" id="SM03" onchange="ChangeSelect();ChangeSign();PLOTbuild()">
 <OPTION  VALUE="1">USA</OPTION>
 <OPTION VALUE="3">Russia</OPTION>
-<OPTION SELECTED VALUE="5">France</OPTION>
-<OPTION VALUE="7">Spain</OPTION>
-<OPTION VALUE="9">Italy</OPTION>
-
-<OPTION VALUE="12">Germany</OPTION>
-<OPTION VALUE="14">Turkey</OPTION>
-<OPTION VALUE="16">Iran</OPTION>
-
-<OPTION VALUE="18">China</OPTION>
+<OPTION SELECTED VALUE="24">Brazil</OPTION>
 <OPTION VALUE="20">UK</OPTION>
+<OPTION VALUE="100">----------------</OPTION>
+
+<OPTION VALUE="32">Belgium</OPTION>
+<OPTION VALUE="28">Canada</OPTION>
+<OPTION VALUE="36">Chile</OPTION>
+<OPTION VALUE="18">China</OPTION>
+<OPTION VALUE="5">France</OPTION>
+<OPTION VALUE="12">Germany</OPTION>
+<OPTION VALUE="22">India</OPTION>
+<OPTION VALUE="16">Iran</OPTION>
+<OPTION VALUE="9">Italy</OPTION>
+<OPTION VALUE="34">Mexico</OPTION>
+<OPTION VALUE="40">Netherlands</OPTION>
+<OPTION VALUE="38">Pakistan</OPTION>
+<OPTION VALUE="26">Peru</OPTION>
+<OPTION VALUE="30">Saud.Ar.</OPTION>
+<OPTION VALUE="7">Spain</OPTION>
+<OPTION VALUE="14">Turkey</OPTION>
 </SELECT>
 
 <SELECT name="SM04" id="SM04" onchange="ChangeSelect();ChangeSign();PLOTbuild()">
 <OPTION  VALUE="1">USA</OPTION>
 <OPTION VALUE="3">Russia</OPTION>
-<OPTION VALUE="5">France</OPTION>
-<OPTION SELECTED VALUE="7">Spain</OPTION>
-<OPTION VALUE="9">Italy</OPTION>
+<OPTION VALUE="24">Brazil</OPTION>
+<OPTION SELECTED VALUE="20">UK</OPTION>
+<OPTION VALUE="100">----------------</OPTION>
 
-<OPTION VALUE="12">Germany</OPTION>
-<OPTION VALUE="14">Turkey</OPTION>
-<OPTION VALUE="16">Iran</OPTION>
-
+<OPTION VALUE="32">Belgium</OPTION>
+<OPTION VALUE="28">Canada</OPTION>
+<OPTION VALUE="36">Chile</OPTION>
 <OPTION VALUE="18">China</OPTION>
-<OPTION VALUE="20">UK</OPTION>
+<OPTION VALUE="5">France</OPTION>
+<OPTION VALUE="12">Germany</OPTION>
+<OPTION VALUE="22">India</OPTION>
+<OPTION VALUE="16">Iran</OPTION>
+<OPTION VALUE="9">Italy</OPTION>
+<OPTION VALUE="34">Mexico</OPTION>
+<OPTION VALUE="40">Netherlands</OPTION>
+<OPTION VALUE="38">Pakistan</OPTION>
+<OPTION VALUE="26">Peru</OPTION>
+<OPTION VALUE="30">Saud.Ar.</OPTION>
+<OPTION VALUE="7">Spain</OPTION>
+<OPTION VALUE="14">Turkey</OPTION>
 </SELECT>
 
 
@@ -864,13 +902,30 @@ To see the values for four countries, you only need to click on the checkbox for
 
 <b id="boldStuff" style="color:transparent;">SVG</b><textarea id="inputTextToSave" class="input_type" style="display:none"></textarea>
 <br><textarea class="input_type" id="temptext" name="temptext" cols="80" rows="3"  style="display:none">11 1 20;600 200;10 0 0 black 1 1
-11 2 20;600 200;10 1 1 gray 1 1
+11 2 20;600 200;10 1 1 red 1 1
 11 3 20;600 400;210 0 0 black 1 1
-11 4 20;600 400;210 1 1 grey 0 1
+11 4 20;600 400;210 1 1 red 0 1
 </textarea>
 
 <br><textarea class="input_type" id="target" name="target" cols="98" rows="28"  wrap="off">
 Date	USA-C	D	Russia-C D	France-C D	Spain-C D	Italy-C D	Day	Germanu-C D	Turkey-C D	Iran-C D	China-C D	UK-C	D	India-C	D	Brazil-C D	Peru-C D	Canada-C D	Saudi Ar	Belgium-C D	Mexico-C D	Chile-C D	Pakistan-C D	Netherlands	
+06.06	1934	110.47	454	5.62	189	29.11	264	28.75	234	33.77	158	185	8.76	168	4.64	167	8.13	84	4.64	283	40.26	236	6.65	646	35.05	187	5.16	94	7.72	95	0.64	59	9.57	110	13.17	122	1.45	91	1.9	47	6
+05.06	1905	109.46	450	5.53	189	29.06	264	28.75	234	33.69	157	185	8.73	167	4.63	164	8.07	84	4.64	282	39.90	227	6.36	616	34.04	183	5.03	94	7.64	93	0.61	58	9.56	105	12.54	118	1.36	89	1.84	47	6
+04.06	1883	108.42	441	5.38	189	29.02	263	28.75	233	33.6	156	184	8.7	166	4.6	160	8.01	84	4.64	280	39.73	217	6.09	584	32.57	179	4.9	93	7.5	91	0.58	58	9.53	101	11.73	113	1.27	85	1.77	46	5.98
+03.06	1861	107.29	432	5.21	189	28.94	240	28.75	233	33.53	155	184	8.67	165	4.58	157	7.94	84	4.64	278	39.37	208	5.83	558	31.31	175	4.77	93	7.4	89	0.55	58	9.5	97	10.64	108	1.2	80	1.69	46	5.97
+02.06	1839	106.21	423	5.03	189	28.83	239	28.75	233	33.47	154	183	8.62	164	4.56	154	7.88	84	4.64	276	39.04	199	5.61	529	30.01	170	4.63	92	7.35	87	0.52	58	9.5	90	10.16	105	1.11	76	1.62	46	5.96
+01.06	1818	105.45	414	4.85	189	28.8	239	28.75	233	33.41	153	183	8.6	164	4.54	151	7.8	84	4.64	274	38.49	190	5.41	515	29.34	164	4.5	91	7.32	85	0.5	58	9.47	90	9.93	99	1.05	72	1.54	46	5.95
+31.05	1797	104.83	405	4.7	188	28.77	239	28.75	232	33.34	152	183	8.6	163	4.51	149	7.73	84	4.64	272	38.37	182	5.18	498	28.83	155	4.37	90	7.07	83	0.48	58	9.46	87	9.77	94	1	69	1.48	46	5.95
+30.05	1774	103.85	396	4.55	187	28.71	238	28.75	232	33.23	151	183	8.59	162	4.49	146	7.68	84	4.64	271	38.16	174	4.98	468	27.94	148	4.23	89	6.98	81	0.46	58	9.43	84	9.41	90	0.94	66	1.4	46	5.93
+29.05	1749	102.62	387	4.37	186	28.66	238	28.75	231	33.14	150	182	8.57	160	4.46	143	7.62	84	4.64	269	37.88	165	4.71	438	26.81	141	4.01	89	6.93	80	0.44	57	9.38	81	9.04	87	0.89	64	1.32	46	5.91
+28.05	1726	101.41	379	4.14	183	28.6	237	28.75	231	33.07	149	182	8.5	159	4.43	141	7.56	84	4.64	268	37.5	158	4.54	414	25.7	136	3.98	88	6.8	78	0.42	57	9.36	78	8.6	82	0.84	61	1.26	45	5.88
+27.05	1707	99.89	370	3.97	183	28.53	237	28.75	230	32.95	148	181	8.5	158	4.4	139	7.5	84	4.64	266	37.09	151	4.34	392	24.55	129	3.79	87	6.7	76	0.41	57	9.33	74	8.13	77	0.8	57	1.2	45	5.87
+26.05	1688	99.16	362	3.8	183	28.43	237	28.75	230	32.87	147	180	8.43	157	4.37	137	7.45	84	4.64	261	36.92	145	4.17	375	23.47	124	3.63	86	6.56	74	0.4	57	9.31	71	7.63	74	0.76	57	1.2	45	5.83
+25.05	1671	98.26	353	3.63	182	28.36	237	28.75	229	32.78	146	180	8.36	156	4.34	135	7.42	84	4.64	259	36.79	138	4.02	365	22.74	120	3.45	84	6.42	72	0.39	57	9.28	68	7.39	69	0.72	54	1.13	45	5.83
+24.05	1657	97.42	344	3.54	182	28.33	237	28.67	229	32.73	145	180	8.36	155	4.3	133	7.36	84	4.64	258	36.75	131	3.86	349	22.16	115	3.37	84	6.4	70	0.38	56	9.23	65	7.18	65	0.67	54	1.3	45	5.83
+23.05	1634	96.33	335	3.37	182	28.3	237	28.63	228	32.61	144	179	8.35	154	4.27	131	7.3	84	4.64	255	36.47	125	3.73	332	21.11	111	3.24	84	6.36	67	0.36	56	9.21	62	6.99	61	0.61	52	1.1	45	5.8
+22.05	1608	95.08	326	3.25	182	28.3	237	27.94	228	32.48	143	179	8.31	153	4.25	129	7.25	84	4.64	252	36.12	118	3.58	310	20.05	108	3.14	82	6.27	65	0.35	56	9.18	59	6.51	57	0.59	50	1.06	44	5.79
+21.05	1581	93.8	317	3.08	181	28.3	237	27.88	227	32.33	142	178	8.27	152	4.22	126	7.18	84	4.64	250	35.78	112	3.44	293	18.89	104	3.02	81	6.15	62	0.34	56	9.15	56	6.09	53	0.54	48	1.02	44	5.77
 20.05	1558	92.25	308	2.97	181	28.28	237	27.77	226	32.16	141	178	8.19	151	4.2	124	7.12	84	4.64	250	35.42	107	3.30	272	17.41	99	2.91	79	5.91	60	0.33	56	9.11	54	5.67	50	0.51	46	0.99	44	5.72
 19.05	1537	90.69	299	2.82	180	28.24	237	27.71	225	32	140	177	8.12	150	4.17	122	7.05	84	4.64	247	34.87	101	3.16	254	16.79	95	2.79	78	5.84	57	0.32	56	9.08	52	5.33	46	0.48	44	0.94	44	5.69
 18.05	1516	89.93	290	2.72	179	28.11	237	27.65	225	31.91	139	176	8.05	149	4.14	120	6.99	84	4.64	245	34.72	96	3.03	241	16.12	92	2.65	77	5.78	55	0.31	55	9.05	49	5.18	44	0.45	42	0.90	44	5.68
@@ -1030,7 +1085,7 @@ Youtube: <a href="https://www.youtube.com/watch?v=-ISkI20svr4">Информационный ре
 <br>
 	Youtube: <a href="https://www.youtube.com/watch?v=xblVoJbxyIc">CSV2SVG - программа построения графиков</a>
 	<br>
-	Github: <a href="https://github.com/yaroslav1982/csv2svg-online">csv2svg-online</a>
+	Github: <a href="https://github.com/yaroslav1982/tablepedia.com">tablepedia.com</a>
 	<br>
 	Feedback: Yaroslav Solyanikov (Ярослав Соляников)
 	<br>
