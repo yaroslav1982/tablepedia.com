@@ -1,0 +1,251 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+<title>Visualization of user data #tablepedia #csv2svg #covidplot #virusplot tablepedia.com</title>
+</head>
+
+<body onload="PLOTbuild()">
+   See also Visualization of COVID-19 data: <a href="http://tablepedia.com/en/covid-19.html">tablepedia.com/en/covid-19.html</a> Github: <a href="https://github.com/yaroslav1982/tablepedia.com">https://github.com/yaroslav1982/tablepedia.com</a>
+   <h1>Visualization of user data (single HTML page with JS in 8 KB)</h1>
+   Xmin= <input id="xMin" value="0" type="text" size="10">
+   Xmax= <input id="xMax" value="160" type="text" size="10">
+   Xstep= <input id="xStep" value="10" type="text" size="10">
+   <input type="button" value="       PLOT USER DATA       " onclick="PLOTbuild()">
+   <br>
+   Ymin= <input id="yMin" value="0" type="text" size="10">
+   Ymax= <input id="yMax" value="1600" type="text" size="10">
+   Ystep= <input id="yStep" value="200" type="text" size="10">
+
+<script>
+	var horizontalRange = '20;580'; var verticalRange = '360;10';
+	var xcol=0; var ycol=1;	var fsize = "12"; var plotColor="red" 
+	var STRINGelements = ['', '']; var sTemp=0; var OXscale=""; var OYscale="";  
+
+function PLOTbuild()
+{			
+	var s0 = "<svg version='1.1' width='" + '700' + "' height='" + '400' + "' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>";
+	document.getElementById('boldStuff').innerHTML = s0 + SVGgenerate() + "\n" + "</svg>";
+}
+
+function SVGgenerate()
+{
+	var xMIN=document.getElementById('xMin').value;
+	var x1=parseFloat(xMIN);
+	var xMAX=document.getElementById('xMax').value;
+	var x2=parseFloat(xMAX);
+	var xMM=xMIN+";"+xMAX;
+	var xStep=document.getElementById('xStep').value;
+	var x3=parseFloat(xStep); if (x3 == 0) x3=x2-x1;
+
+	var yMIN=document.getElementById('yMin').value;
+	var y1=parseFloat(yMIN);
+	var yMAX=document.getElementById('yMax').value;
+	var y2=parseFloat(yMAX);
+	var yMM=yMIN+";"+yMAX;
+	var yStep=document.getElementById('yStep').value;
+	var y3=parseFloat(yStep); if (y3 == 0) y3=y2-y1;
+
+	var FromToX = NUMBERseries(x1, x2, x3);	OXscale = TEXTscale(FromToX, horizontalRange);
+	var FromToY = NUMBERseries(y1, y2, y3);	OYscale = TEXTscale(FromToY, verticalRange);
+	var rangeXA4 = horizontalRange.split(";"); 	var axisOnOX = rangeXA4[0];
+	var rangeYA4 = verticalRange.split(";"); 	var axisOnOY = rangeYA4[0];
+	var targ = document.getElementById('target').value;
+	var tableStringsOX = OXscale.split("\n"); var tableStringsOY = OYscale.split("\n");
+	var tableStringsT = targ.split("\n");	var SIMPLEpoly = '';
+	for (var i = 1; i < tableStringsT.length-1; i = i + 1)		
+	{
+		STRINGelements = tableStringsT[i].split("\t"); 
+		sTemp = STRINGelements[xcol] + ';' + STRINGelements[ycol];
+		SIMPLEpoly = SIMPLEpoly + convert2ValuesTo2Coordinates(sTemp, xMM, yMM, horizontalRange, verticalRange) + '\n';
+	}
+	SIMPLEpoly = SIMPLEpoly.replace(/;/g, ',');
+	var sSVG = "<polyline fill='none' stroke='" + plotColor + "' stroke-width='1' points='"; 
+	sSVG = sSVG + SIMPLEpoly + "' />";
+	sSVG = sSVG + "\n" + "<polyline fill='none' stroke='#000000' stroke-width='0.5' points='"; 
+	sSVG = sSVG + rangeXA4[0] + "," + axisOnOY + " " + rangeXA4[1] + "," + axisOnOY + "' />";
+	for (var i = 0; i < tableStringsOX.length; i++)	
+	{
+		STRINGelements = tableStringsOX[i].split("\t");
+		var OXshift1 = parseFloat(axisOnOY) + 10; var OXsh1 = OXshift1.toString(); 
+		var OYshift1 = parseFloat(axisOnOX) + 20; var nOYsh2 = parseFloat(axisOnOX) - 5; var OYsh1 = OYshift1.toString(); 
+		var nOXsh2 = parseFloat(STRINGelements[1]) - 4; var OXsh2 = nOXsh2.toString();
+		var nOYsh3 = parseFloat(OXsh1) + 8; var OYsh3 = nOYsh3.toString();
+		sSVG = sSVG + "\n" + "<polyline fill='none' stroke='#000000' stroke-width='0.5' points='"; 
+		sSVG = sSVG + STRINGelements[1] + "," + axisOnOY + " " + STRINGelements[1] + "," + OXsh1 + "' />";
+		sSVG = sSVG + "\n" + "<text x='" + OXsh2 + "' y='" + OYsh3 + 
+			"' fill='black' font-family='Arial' font-size='" + fsize + "'>" + STRINGelements[2] + "</text>";
+	}
+	sSVG = sSVG + "\n" + "<polyline fill='none' stroke='#000000' stroke-width='0.5' points='" + axisOnOX + ",";
+	sSVG = sSVG + rangeYA4[0] + " " + axisOnOX + "," + rangeYA4[1] + "' />";
+	for (var i = 0; i < tableStringsOY.length; i++)
+	{
+		STRINGelements = tableStringsOY[i].split("\t"); 
+		OXshift1 = parseFloat(axisOnOY) + 10; OXsh1 = OXshift1.toString(); OYshift1 = parseFloat(axisOnOX) + 10;
+		OYsh1 = OYshift1.toString();
+		sSVG = sSVG + "\n" + "<polyline fill='none' stroke='#000000' stroke-width='0.5' points='" + axisOnOX + ",";
+		sSVG = sSVG + STRINGelements[1] + " " + OYsh1 + "," + STRINGelements[1] + "' />";
+		sSVG = sSVG + "\n" + "<text x='" + OYsh1 + "' y='" + STRINGelements[1] + "' fill='" + plotColor + 
+			"' font-family='Arial' font-size='" + fsize + "'>" + STRINGelements[2] + "</text>";
+	} 
+	return sSVG;
+}
+
+function TEXTscale(x1xN, min4max4)
+{
+	var pieces = x1xN.split(";"); 
+	var pieces2 = min4max4.split(";");
+	var qx = pieces.length-1;
+	var sm3 = ""; var smpp=0;
+	for (var i = 0; i < qx; i = i + 1)
+	{
+		smpp = parseFloat(pieces[i]); sm3 = sm3 + smpp; sm3 = sm3 + "\t";
+smart2 = findProportion(parseFloat(pieces[0]), parseFloat(pieces[qx]), smpp, parseFloat(pieces2[0]), parseFloat(pieces2[1]));
+			smart2 = NUMBERround(smart2, 3);
+			sm3 = sm3 + smart2;
+			sm3 = sm3 + "\t" + smpp + "\n";
+	}
+	coo = parseFloat(pieces2[1]);
+	coo = NUMBERround(coo, 4);
+	coo2 = parseFloat(pieces[qx]);
+	sm3 = sm3 + coo2+"\t"+coo+"\t"+coo2;
+	return sm3;
+}
+
+function convert2ValuesTo2Coordinates(xy, x, y, xa4, ya4)
+{
+	var srav = xy.split(";");
+	var d0 = convert1ValueTo1Coordinate(x, xa4, srav[0]);	var h0 = convert1ValueTo1Coordinate(y, ya4, srav[1]);
+	var gett = d0 + ";" + h0; return gett;
+}
+
+function convert1ValueTo1Coordinate(VECTOR1, VECTOR2, xVECTOR1)
+{
+	var pieces = VECTOR1.split(";"); 	var pieces2 = VECTOR2.split(";");
+	var smart2 = findProportion(parseFloat(pieces[0]), parseFloat(pieces[1]), xVECTOR1, parseFloat(pieces2[0]), parseFloat(pieces2[1]));
+	return smart2;
+}
+
+function findProportion(x1, x2, xAmong, min4, max4)
+{
+	var part = (xAmong - x1) / (x2 - x1); return (max4 - min4) * part + min4; 
+}
+
+function NUMBERround(x, n)
+{
+	if (isNaN(x) || isNaN(n)) return 0; var m = Math.pow(10, n); return Math.round(x * m) / m;
+}
+
+function NUMBERfloat(xbig, xsmall)
+{
+	vmax = Math.floor(xbig / xsmall + 0.99) * xsmall;	vmax = vmax.toFixed(10); 
+	vmax = vmax * 1;	smax = vmax.toString();		return smax;
+}
+
+function NUMBERseries(f, t, vStep)
+{
+	var s = "";
+	for (var x = f; x < t; x = x + vStep)
+	{
+		s = s + NUMBERfloat(x, vStep) + ";"
+	}
+	s=s+t; return s;
+}
+
+</script>
+<br>
+<br>
+USER DATA:
+<br>
+<textarea class="input_type" id="target" name="target" cols="28" rows="28"  wrap="off">
+X	Y
+159	1956
+158	1934
+157	1905
+156	1883
+155	1861
+154	1839
+153	1818
+152	1797
+151	1774
+150	1749
+149	1726
+148	1707
+147	1688
+146	1671
+145	1657
+144	1634
+143	1608
+142	1581
+141	1558
+140	1537
+139	1516
+138	1497
+137	1473
+136	1441
+135	1414
+134	1393
+133	1373
+132	1356
+131	1333
+130	1307
+129	1279
+128	1250
+127	1225
+126	1200
+125	1158
+124	1133
+123	1104
+122	1070
+121	1040
+120	1013
+119	988
+118	966
+117	939
+116	891
+115	869
+114	843
+113	825
+112	788
+111	760
+110	735
+109	702
+108	671
+107	640
+106	610
+105	583
+104	558
+103	530
+102	502
+101	466
+100	432
+99	399
+98	368
+97	338
+96	312
+95	278
+94	246
+93	217
+92	190
+91	165
+90	143
+89	125
+88	105
+87	86
+86	69
+85	55
+84	46
+83	35
+82	27
+81	20
+80	14
+79	9
+78	6
+77	5
+0	0
+</textarea>
+<b id="boldStuff" style="color:transparent;">SVG</b>
+<br>
+<br>
+See also Visualization of COVID-19 data: <a href="http://tablepedia.com/en/covid-19.html">tablepedia.com/en/covid-19.html</a> Github: <a href="https://github.com/yaroslav1982/tablepedia.com">https://github.com/yaroslav1982/tablepedia.com</a>
+</body>
+</html>
