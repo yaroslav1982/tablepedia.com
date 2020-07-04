@@ -10,7 +10,7 @@ H1 { font: x-large Verdana, sans-serif; text-align: center; letter-spacing: -0.0
 H2 { border-bottom: thin solid #909090; font: normal 1.3em Georgia, serif; }g
 H2 ~ *:not(H2){margin-left:1.5em;}
 H3 { color: #000000; font: medium sans-serif; }
-H3 SPAN { background-color: #E0E0E0; border-right: thin solid #000000; border-bottom: thin solid #000000; padding-right: 0.5ex; }
+H3 SPAN { background-color: #E0E0E0; border-right: thin solid #000000; border-bottom: thin solid #000000; padding-right: 0.5ex; }29
 H3 EM { color: #000000; font-style: normal; }
 A:link { color: #333333; }
 A:visited { color: #333333; }
@@ -88,6 +88,13 @@ http://tablepedia.com
 
 
 <textarea rows="7" cols="120" class="input_type" id="tablo"  name="tablo">
+01.07.2020 Gold 4010 RUB/g Silver 40.41 RUB/g Platinum 1834 RUB/g Palladium 4335 RUB/g USD 70.44 EUR 78.99
+Gold 1770 USD/OZ Silver 17.84 USD/OZ Platinum 810 USD/OZ Palladium 1914 USD/OZ
+01.07.2010 Gold 1247 RUB/g Silver 18.61 RUB/g Platinum 1514 RUB/g Palladium 431 RUB/g USD 31.26 EUR 39.12
+Gold 1241 USD/OZ Silver 18.51 USD/OZ Platinum 1506 USD/OZ Palladium 429 USD/OZ
+30.06.2000 Gold 261 RUB/g Silver 4.5 RUB/g Platinum 494 RUB/g Palladium 585 RUB/g USD 28.07 EUR 26.74
+Gold 289 USD/OZ Silver 4.99 USD/OZ Platinum 547 USD/OZ Palladium 648 USD/OZ
+
 29.05.2020 Gold 3939 RUB/g Silver 39.64 RUB/g Platinum 1911 RUB/g Palladium 4435 RUB/g USD 71.10 EUR 78.26
 Gold 1723 USD/OZ Silver 17.34 USD/OZ Platinum 836 USD/OZ Palladium 1940 USD/OZ
 28.05.2010 Gold 1201 RUB/g Silver 18.24 RUB/g Platinum 1538 RUB/g Palladium 460 RUB/g USD 30.88 EUR 37.89
@@ -115,7 +122,7 @@ Gold 280 USD/OZ Silver 5.06 USD/OZ Platinum 478 USD/OZ Palladium 615 USD/OZ
 var XYf = 0;                        
 var rangesOfColumnMinAndMax = ''; 
 var a=1;
-var b=4095;  
+var b=4125;  
 
 function PLOTbuild()
 {	rangesOfColumnMinAndMax = '';
@@ -549,8 +556,8 @@ function myFunction()
 {
 var ttcc=[document.getElementById("myCh1").checked, document.getElementById("myCh2").checked, document.getElementById("myCh3").checked, document.getElementById("myCh4").checked, document.getElementById("myCh5").checked, document.getElementById("myCh6").checked, document.getElementById("myCh7").checked, document.getElementById("myCh8").checked, document.getElementById("myCh9").checked, document.getElementById("myCh10").checked];
 	var t1 = ""; var order = 0; var czero=0;
-	var FOUR = ['20;800 200;10 0 0 black 1 1', '20;800 200;10 1 1 grey 1 1',
-		'20;800 400;210 0 0 black 1 1', '20;800 400;210 1 1 gray 0 1'];
+	var FOUR = ['20;800 200;10 0 0 black 1 1', '20;800 200;10 1 1 red 1 1',
+		'20;800 400;210 0 0 black 1 1', '20;800 400;210 1 1 red 0 1'];
 for (var azero = 0; azero < 10; azero++)
 	{
 czero=czero+1;
@@ -640,12 +647,34 @@ USD/OZ:
 
 <b id="boldStuff" style="color:transparent;">SVG</b><textarea id="inputTextToSave" class="input_type" style="display:none"></textarea>
 <br><textarea class="input_type" id="temptext" name="temptext" cols="80" rows="3"  style="display:none">5 1 20;800 200;10 0 0 black 1 1
-5 2 20;800 200;10 1 1 gray 1 1
+5 2 20;800 200;10 1 1 red 1 1
 5 3 20;800 400;210 0 0 black 1 1
-5 4 20;800 400;210 1 1 grey 0 1
+5 4 20;800 400;210 1 1 red 0 1
 </textarea>
 <br><textarea class="input_type" id="target" name="target" cols="120" rows="12">
 	Gold	Silver	Platinum	Palladium		USD	EUR	Gold	Silver	Platinum	Palladium
+01.07.2020	4010	40.41	1834	4335	2020.500	70.44	78.99	1770	17.84	810	1914
+30.06.2020	3978	40.27	1826	4217	2020.496	69.95	78.68	1769	17.90	812	1875
+27.06.2020	3916	39.63	1782	4103	2020.492	69.13	77.54	1762	17.83	802	1846
+26.06.2020	3928	39.15	1802	4176	2020.488	69.47	78.06	1758	17.53	807	1870
+25.06.2020	3930	39.52	1828	4294	2020.484	68.84	77.76	1775	17.85	826	1940
+24.06.2020	3888	39.42	1826	4271	2020.480	68.84	77.68	1756	17.81	825	1930
+23.06.2020	3899	39.9	1807	4285	2020.476	69.48	77.83	1745	17.86	809	1918
+20.06.2020	3866	39.2	1801	4248	2020.472	69.57	78.00	1728	17.52	805	1899
+19.06.2020	3878	39.43	1829	4327	2020.468	69.62	78.29	1732	17.61	817	1933
+18.06.2020	3836	39.03	1823	4309	2020.464	69.48	78.38	1717	17.47	816	1929
+17.06.2020	3876	39.04	1861	4409	2020.460	69.75	79.04	1728	17.41	830	1966
+16.06.2020	3871	38.67	1822	4305	2020.456	70.40	79.15	1710	17.08	805	1902
+12.06.2020	3849	39.72	1833	4282	2020.452	69.12	78.52	1732	17.87	825	1927
+11.06.2020	3789	39.08	1851	4247	2020.448	68.62	77.92	1717	17.71	839	1925
+10.06.2020	3770	38.93	1817	4345	2020.444	68.67	77.35	1707	17.63	823	1968
+09.06.2020	3716	38.72	1827	4283	2020.440	68.31	77.19	1692	17.63	832	1950
+06.06.2020	3772	38.79	1842	4248	2020.436	68.63	77.97	1709	17.58	835	1925
+05.06.2020	3786	39.39	1848	4327	2020.432	69.02	77.32	1706	17.75	833	1950
+04.06.2020	3774	39.24	1819	4289	2020.428	68.34	76.62	1717	17.86	828	1952
+03.06.2020	3860	40.52	1876	4334	2020.424	68.98	76.78	1740	18.27	846	1954
+02.06.2020	3888	40.7	1874	4337	2020.420	69.71	77.64	1735	18.16	836	1935
+30.05.2020	3925	40.01	1911	4370	2020.416	70.75	78.55	1725	17.59	840	1921
 29.05.2020	3939	39.64	1911	4435	2020.398	71.1012	78.2611	1723	17.34	836	1940
 28.05.2020	3896	39.27	1899	4490	2020.395	71.0635	77.9069	1705	17.19	831	1965
 27.05.2020	3940	39.57	1914	4476	2020.392	71.1408	77.7854	1723	17.30	837	1957
