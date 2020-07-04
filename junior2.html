@@ -1,0 +1,223 @@
+<html>
+<head>
+<title>Visualization of user data #tablepedia #csv2svg #covidplot #virusplot tablepedia.com</title>
+</head>
+<body onload="CARE(); PLOTbuild();">
+   See also Visualization of COVID-19 data: <a href="http://tablepedia.com/en/covid-19.html">tablepedia.com/en/covid-19.html</a> Github: <a href="https://github.com/yaroslav1982/tablepedia.com">https://github.com/yaroslav1982/tablepedia.com</a>
+   <h1>Graphing calculator (single HTML page with JS in 8 KB)</h1>
+
+   Xmin= <input id="xMin" value="0" type="text" size="10">
+   Xmax= <input id="xMax" value="10" type="text" size="10">
+   Xstep= <input id="xStep" value="1" type="text" size="10">
+   <br>
+   f(x)= <input id="tCare" value="x^2; sin(x); exp(x); log(x)" type="text" size="40">
+<script>
+	var h1 = 20; var h2 = 580; var v1 = 360; var v2 = 10; var x1=0; var x2=0; var x3=0; var x4=0;
+	var y1=0; var y2=0; var y3=0; var OXaxis=0; var OYaxis=0;
+	var xcol=0; var ycol=1;	var fsize = "12"; var plotColor="red" 
+	var elements = ['', '']; var sTemp=""; var OXscale=""; var OYscale="";  
+
+function PLOTbuild()
+{		
+OXaxis=0; OYaxis=0;
+	var FromToX = NUMBERseries(x1, x2, x3);	OXscale = TEXTscale(FromToX, h1, h2);
+	var FromToY = NUMBERseries(y1, y2, y3); OYscale = TEXTscale(FromToY, v1, v2);
+
+	var targ = document.getElementById('target').value;
+	var stringsOX = OXscale.split("\n"); var stringsOY = OYscale.split("\n");
+	var tableStringsT = targ.split("\n");	var SIMPLEpoly = '';
+	for (var i = 1; i < tableStringsT.length-1; i = i + 1)		
+	{
+		elements = tableStringsT[i].split("\t"); 
+		sTemp = elements[xcol] + ';' + elements[ycol];
+		SIMPLEpoly = SIMPLEpoly + convert2ValuesTo2Coordinates(sTemp, x1, x2, y1, y2, h1, h2, v1, v2) + '\n';
+	}
+	SIMPLEpoly = SIMPLEpoly.replace(/;/g, ',');
+	var sSVG = "<polyline fill='none' stroke='" + plotColor + "' stroke-width='1' points='"; 
+	sSVG = sSVG + SIMPLEpoly + "' />";
+	sSVG = sSVG + "\n" + "<polyline fill='none' stroke='#000000' stroke-width='0.5' points='"; 
+	sSVG = sSVG + h1 + "," + OYaxis + " " + h2 + "," + OYaxis + "' />";
+	for (var i = 0; i < stringsOX.length; i++)	
+	{
+		elements = stringsOX[i].split("\t");
+		var OXshift1 = OYaxis + 10;	var OYshift1 = h1 + 20; 
+		var nOXsh2 = parseFloat(elements[1]) - 4; var nOYsh3 = OYaxis + 18; 
+		sSVG = sSVG + "\n" + "<polyline fill='none' stroke='#000000' stroke-width='0.5' points='"; 
+		sSVG = sSVG + elements[1] + "," + OYaxis + " " + elements[1] + "," + OXshift1 + "' />";
+		sSVG = sSVG + "\n" + "<text x='" + nOXsh2 + "' y='" + nOYsh3 + 
+			"' fill='black' font-family='Arial' font-size='" + fsize + "'>" + elements[2] + "</text>";
+	}
+	sSVG = sSVG + "\n" + "<polyline fill='none' stroke='#000000' stroke-width='0.5' points='" + OXaxis + ",";
+	sSVG = sSVG + v1 + " " + OXaxis + "," + v2 + "' />";
+	for (var i = 0; i < stringsOY.length; i++)
+	{
+		elements = stringsOY[i].split("\t");
+		sTemp=elements[2];
+		if (i == (stringsOY.length-1)) sTemp=document.getElementById("SM01").options[ycol].text;
+		OXshift1 = v1 + 10; OYshift1 = OXaxis + 10;
+		sSVG = sSVG + "\n" + "<polyline fill='none' stroke='#000000' stroke-width='0.5' points='" + OXaxis + ",";
+		sSVG = sSVG + elements[1] + " " + OYshift1 + "," + elements[1] + "' />";
+		sSVG = sSVG + "\n" + "<text x='" + OYshift1 + "' y='" + elements[1] + "' fill='" + plotColor + 
+			"' font-family='Arial' font-size='" + fsize + "'>" + sTemp + "</text>";
+	} 
+document.getElementById('boldStuff').innerHTML = "<svg version='1.1' width='" + '700' + "' height='" + '400' + "' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>" + sSVG + "\n" + "</svg>";
+
+}
+
+function TEXTscale(x1xN, min4, max4)
+{
+	var pieces = x1xN.split(";"); 
+	var qx = pieces.length-1;
+	var sm3 = ""; var smpp=0;
+	for (var i = 0; i < qx; i = i + 1)
+	{
+		smpp = parseFloat(pieces[i]); sm3 = sm3 + smpp; sm3 = sm3 + "\t";
+		xx1=parseFloat(pieces[0]);
+		xx2=parseFloat(pieces[qx]);
+		xAmong=smpp;
+		part = (xAmong - xx1) / (xx2 - xx1); smart2=(max4 - min4) * part + min4; 
+		smart2 = NUMBERfloat(smart2, 0.001);
+		sm3 = sm3 + smart2;
+		sm3 = sm3 + "\t" + smpp + "\n";
+if (smpp == 0) 
+{
+if (OXaxis == 0) {OXaxis=smart2;} else {OYaxis=smart2;}
+}
+
+
+	}
+	coo = NUMBERfloat(max4, 0.0001);
+	sm3 = sm3 + x2+"\t"+coo+"\t"+x2;
+	return sm3;
+}
+
+function convert2ValuesTo2Coordinates(xy, x1, x2, y1, y2, xa41, xa42, ya41, ya42)
+{
+	var srav = xy.split(";");
+	var gett = convert1ValueTo1Coordinate(x1, x2, xa41, xa42, srav[0]) + ";" + convert1ValueTo1Coordinate(y1, y2, ya41, ya42, srav[1]); return gett;
+}
+
+function convert1ValueTo1Coordinate(zx1, zx2, a1, a2, xVECTOR1)
+{
+	return (a2-a1) * (xVECTOR1 - zx1) / (zx2 - zx1) + a1; 
+}
+
+function NUMBERfloat(xbig, xsmall)
+{
+	vmax = Math.floor(xbig / xsmall + 0.99) * xsmall;	vmax = vmax.toFixed(10); 
+	vmax = vmax * 1;	return vmax;
+}
+
+function NUMBERseries(f, t, vStep)
+{
+	var s = "";
+	for (var x = f; x < t; x = x + vStep)
+	{
+		s = s + NUMBERfloat(x, vStep) + ";"
+	}
+	s=s+t; return s;
+}
+
+function CARE()
+{
+	ycol = document.getElementById("SM01").options.selectedIndex;
+	var s = document.getElementById("target").value;
+	var arrayOfTableStrings = s.split("\n");
+	var midC = 0;
+	var minC = 0;
+	var maxC = 0;
+		for (var i = 1; i < arrayOfTableStrings.length - 1; i++)
+		{
+			STRINGelements = arrayOfTableStrings[i].split("\t");
+			midC = parseFloat(STRINGelements[ycol]);
+			if (maxC < midC) 
+				maxC = midC;
+			if (minC > midC) 
+				minC = midC;
+		}
+	a = NUMBERfloat(minC, 0.001);
+	b = NUMBERfloat(maxC, 0.001);	
+	var xr = Math.abs(b - a) / 10;
+	var mimi = Math.abs(a / xr) / 10 * 5;
+	if (mimi < 1)
+	{
+		a = 0; 
+		xr = Math.abs(b - a) / 10;
+	}
+	var loga = Math.log10(xr);
+	var inta = Math.floor(loga);
+	var deca = Math.pow(10, inta); 
+	var mi1 = Math.floor(a / deca);
+	var ma1 = Math.ceil(b / deca);
+	var xMIN=document.getElementById('xMin').value;
+	x1=parseFloat(xMIN);
+	var xMAX=document.getElementById('xMax').value;
+	x2=parseFloat(xMAX);
+	var xStep=document.getElementById('xStep').value;
+	x3=parseFloat(xStep); if (x3 == 0) x3=x2-x1;
+	x4=x3/10;
+	y1 = NUMBERfloat(mi1 * deca, 0.001); 
+	y2 = NUMBERfloat(ma1 * deca, 0.001);
+	y3=(y2-y1)/10;
+	var xtemp=0;
+var textToSave = document.getElementById("tCare").value;
+textToSave=textToSave.replace('log', 'Math.log');
+textToSave=textToSave.replace('exp', 'Math.exp');
+textToSave=textToSave.replace('sin', 'Math.sin');
+textToSave=textToSave.replace('cos', 'Math.cos');
+var tts= textToSave.split(";");
+var s='';
+var i=0;
+var j=0;
+for(i=x1; i<x2;i=i+x4){
+s=s+NUMBERfloat(i, 0.001);
+for(j=0; j<tts.length;j++){
+xtemp=eval('x='+i+'; '+caretReplace(tts[j]))
+s=s+'\t'+NUMBERfloat(xtemp, 0.001);
+}
+s=s+'\n';
+if (i>=parseFloat(xMax))break;
+}
+document.getElementById("target").value = s;
+}
+
+var caretReplace = function(_s) {
+    if (_s.indexOf("^") > -1) {
+        var tab = [];
+        var powfunc="Math.pow";
+        var joker = "___joker___";
+        while (_s.indexOf("(") > -1) {
+            _s = _s.replace(/(\([^\(\)]*\))/g, function(m, t) {
+                tab.push(t);
+                return (joker + (tab.length - 1));
+            });
+        }
+
+        tab.push(_s);
+        _s = joker + (tab.length - 1);
+        while (_s.indexOf(joker) > -1) {
+            _s = _s.replace(new RegExp(joker + "(\\d+)", "g"), function(m, d) {
+                return tab[d].replace(/(\w*)\^(\w*)/g, powfunc+"($1,$2)");
+            });
+        }
+    }
+    return _s;
+};
+
+
+</script>
+
+<SELECT name="SM01" id="SM01" onchange="CARE(); PLOTbuild()">
+<OPTION SELECTED VALUE="0">SELECT YOUR FUNCTION</OPTION>
+<OPTION VALUE="1">x^2</OPTION>
+<OPTION VALUE="2">sin(x)</OPTION>
+<OPTION VALUE="3">exp(x)</OPTION>
+<OPTION VALUE="4">log(x)</OPTION>
+</SELECT>
+
+
+<br>
+<textarea class="input_type" id="target" name="target" cols="28" rows="28"  wrap="off"></textarea>
+<b id="boldStuff" style="color:transparent;">SVG</b>
+</body>
+</html>
