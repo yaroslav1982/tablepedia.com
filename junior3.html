@@ -1,0 +1,200 @@
+<html>
+<head>
+<title>Visualization of user data #tablepedia #csv2svg #covidplot #virusplot tablepedia.com</title>
+</head>
+<body onload="PLOTbuild();">
+   See also Visualization of COVID-19 data: <a href="http://tablepedia.com/en/covid-19.html">tablepedia.com/en/covid-19.html</a> Github: <a href="https://github.com/yaroslav1982/tablepedia.com">https://github.com/yaroslav1982/tablepedia.com</a>
+   <h1>Top 10 countries by population since 1980 (single HTML page with JS in 8 KB)</h1>
+<script>
+	var h1 = 20; var h2 = 580; var v1 = 360; var v2 = 10; 
+	var OXaxis=h1; var OYaxis=v1;
+	var fsize = "12"; var plotColor="red" 
+	var elements = ['', '']; var sTemp=""; 
+var ymin=[0, 981, 697, 227, 138, 147, 121, 81, 78, 73, 70];
+var ymax=[0, 1412, 1375, 331, 149, 273, 212, 164, 210, 205, 128];
+
+var x1=1980; var x2=2020; 
+var y1=60; var y2=210;
+
+function PLOTbuild()
+{		
+	var targ = document.getElementById('target').value;
+	var tableStringsT = targ.split("\n");	var SIMPLEpoly = ''; var nTemp=0;
+var ycol = document.getElementById("SM01").options.selectedIndex;
+var ft1=fitRange1(ymin[ycol], ymax[ycol], 10);
+var ft2=NUMBERseries(ft1);
+var FromToX = "1980;1990;2000;2010;2020"; 
+var OXscale = TEXTscale(FromToX, h1, h2);
+var OYscale = TEXTscale(ft2, v1, v2);
+	var stringsOX = OXscale.split("\n"); var stringsOY = OYscale.split("\n");
+	for (var i = 1; i < tableStringsT.length-1; i = i + 1)		
+	{
+		elements = tableStringsT[i].split("\t"); 
+		sTemp = elements[0] + ';' + elements[ycol];
+		SIMPLEpoly = SIMPLEpoly + convert2ValuesTo2Coordinates(sTemp, x1, x2, y1, y2, h1, h2, v1, v2) + '\n';
+	}
+
+	SIMPLEpoly = SIMPLEpoly.replace(/;/g, ',');
+	var sSVG = "<polyline fill='none' stroke='" + plotColor + "' stroke-width='1' points='"; 
+	sSVG = sSVG + SIMPLEpoly + "' />";
+	sSVG = sSVG + "\n" + "<polyline fill='none' stroke='#000000' stroke-width='0.5' points='"; 
+	sSVG = sSVG + h1 + "," + OYaxis + " " + h2 + "," + OYaxis + "' />";
+	for (var i = 0; i < stringsOX.length; i++)	
+	{
+		elements = stringsOX[i].split("\t");
+		var OXshift1 = OYaxis + 10;	var OYshift1 = h1 + 20; 
+		var nOXsh2 = parseFloat(elements[1]) - 4; var nOYsh3 = OYaxis + 18; 
+		sSVG = sSVG + "\n" + "<polyline fill='none' stroke='#000000' stroke-width='0.5' points='"; 
+		sSVG = sSVG + elements[1] + "," + OYaxis + " " + elements[1] + "," + OXshift1 + "' />";
+		sSVG = sSVG + "\n" + "<text x='" + nOXsh2 + "' y='" + nOYsh3 + 
+			"' fill='black' font-family='Arial' font-size='" + fsize + "'>" + elements[2] + "</text>";
+	}
+	sSVG = sSVG + "\n" + "<polyline fill='none' stroke='#000000' stroke-width='0.5' points='" + OXaxis + ",";
+	sSVG = sSVG + v1 + " " + OXaxis + "," + v2 + "' />";
+
+	for (var i = 0; i < stringsOY.length; i++)
+	{
+		elements = stringsOY[i].split("\t");
+		sTemp=elements[2];
+		if (i == (stringsOY.length-1)) sTemp=document.getElementById("SM01").options[ycol].text;
+		OXshift1 = v1 + 10; OYshift1 = OXaxis + 10;
+		sSVG = sSVG + "\n" + "<polyline fill='none' stroke='#000000' stroke-width='0.5' points='" + OXaxis + ",";
+		sSVG = sSVG + elements[1] + " " + OYshift1 + "," + elements[1] + "' />";
+		sSVG = sSVG + "\n" + "<text x='" + OYshift1 + "' y='" + elements[1] + "' fill='" + plotColor + 
+			"' font-family='Arial' font-size='" + fsize + "'>" + sTemp + "</text>";
+	} 
+document.getElementById('boldStuff').innerHTML = "<svg version='1.1' width='" + '700' + "' height='" + '400' + "' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>" + sSVG + "\n" + "</svg>";
+
+}
+
+function TEXTscale(x1xN, min4, max4)
+{
+	var pieces = x1xN.split(";"); 
+	var qx = pieces.length-1;
+	var sm3 = ""; var xAmong=0;
+	for (var i = 0; i < qx; i = i + 1)
+	{
+		xAmong = parseFloat(pieces[i]);
+		xx1=parseFloat(pieces[0]);
+		xx2=parseFloat(pieces[qx]);
+		part = (xAmong - xx1) / (xx2 - xx1); smart2=(max4 - min4) * part + min4; 
+		smart2 = NUMBERfloat(smart2, 0.001);
+		sm3 = sm3 + xAmong + "\t" + smart2 + "\t" + xAmong + "\n";
+	}
+	coo = NUMBERfloat(max4, 0.0001);
+	sm3 = sm3 + xx2+"\t"+coo+"\t"+xx2;
+	return sm3;
+}
+
+function convert2ValuesTo2Coordinates(xy, x1, x2, y1, y2, xa41, xa42, ya41, ya42)
+{
+	var srav = xy.split(";");
+	var gett = convert1ValueTo1Coordinate(x1, x2, xa41, xa42, srav[0]) + ";" + convert1ValueTo1Coordinate(y1, y2, ya41, ya42, srav[1]); return gett;
+}
+
+function convert1ValueTo1Coordinate(zx1, zx2, a1, a2, xVECTOR1)
+{
+	return (a2-a1) * (xVECTOR1 - zx1) / (zx2 - zx1) + a1; 
+}
+
+function NUMBERfloat(xbig, xsmall)
+{
+	vmax = Math.floor(xbig / xsmall + 0.99) * xsmall;	vmax = vmax.toFixed(10); 
+	vmax = vmax * 1;	return vmax;
+}
+
+function fitRange1(a, b, nLines)
+{
+	var xr = Math.abs(b - a) / nLines;
+	var mimi = Math.abs(a / xr) / nLines * 5;
+	if (mimi < 1)
+	{
+		a = 0; 
+		xr = Math.abs(b - a) / nLines;
+	}
+	var loga = Math.log10(xr);
+	var inta = Math.floor(loga);
+	var deca = Math.pow(10, inta); 
+	var mi1 = Math.floor(a / deca);
+	var ma1 = Math.ceil(b / deca);
+	var iFlag = 0;
+	if ((ma1 - mi1) > (nLines * 2))
+	{
+		deca = deca * 5;
+		mi1 = Math.floor(a / deca);
+		ma1 = Math.ceil(b / deca); 
+		iFlag = iFlag + 1;
+	}
+	if ((ma1 - mi1) > (nLines))
+	{
+		deca = deca * 2;
+		mi1 = Math.floor(a / deca);
+		ma1 = Math.ceil(b / deca); 
+		iFlag = iFlag - 1;
+	}
+	var mi2 = mi1 * deca;  
+	var ma2 = ma1 * deca; 	
+var s4 = mi2.toString() + ";" + ma2.toString() + ";" + deca.toString(); 
+	return s4;
+}
+
+function NUMBERseries(fts)
+{
+	var FromToStep = fts.split(";");
+	var sFrom = FromToStep[0]; y1 = parseFloat(sFrom);
+	var sTo = FromToStep[1]; y2 = parseFloat(sTo);
+	var sStep = FromToStep[2]; var vStep = parseFloat(sStep); 
+	var rr = "";
+	for (var x = y1; x < y2; x = x + vStep)
+	{
+		rr = rr + NUMBERfloat(x, vStep)+ ";";
+	}
+rr=rr+y2;
+	return rr;
+}
+
+</script>
+
+<SELECT name="SM01" id="SM01" onchange="PLOTbuild()">
+<OPTION SELECTED VALUE="0">SELECT COUNTRY</OPTION>
+<OPTION VALUE="1">China</OPTION>
+<OPTION VALUE="2">India</OPTION>
+<OPTION VALUE="3">USA</OPTION>
+<OPTION VALUE="4">Russia</OPTION>
+<OPTION VALUE="5">Indonesia</OPTION>
+<OPTION VALUE="6">Brazil</OPTION>
+<OPTION VALUE="7">Bangladesh</OPTION>
+<OPTION VALUE="8">Pakistan</OPTION>
+<OPTION VALUE="9">Nigeria</OPTION>
+<OPTION VALUE="10">Mexico</OPTION>
+</SELECT>
+
+
+<br>
+<textarea class="input_type" id="target" name="target" cols="28" rows="28"  wrap="off">
+Year China	India	USA	Russia	Indonesia	Brazil	Bangladesh	Pakistan	Nigeria	Mexico
+2020	1412	1375	331	147	273	212	164	210	205	128
+2018	1397	1351	327	147	266	210	161	201	196	124
+2016	1379	1324	323	147	261	208	159	193	186	122
+2014	1364	1294	319	146	254	205	157	186	178	120
+2012	1351	1263	314	143	248	201	155	179	168	118
+2010	1338	1231	309	143	242	197	152	171	159	116
+2008	1325	1197	304	143	236	193	149	163	151	114
+2006	1311	1162	299	143	230	189	145	157	143	112
+2004	1296	1126	293	144	224	185	140	150	136	109
+2002	1280	1089	288	145	218	181	135	143	129	106
+2000	1263	1054	282	147	212	175	129	137	122	103
+1998	1242	1018	276	148	206	171	125	132	115	100
+1996	1218	983	269	148	200	165	120	126	109	97
+1994	1192	946	263	148	194	159	117	120	101	93
+1992	1165	910	257	149	188	155	112	114	93	89
+1990	1135	874	250	148	182	150	106	108	88	86
+1988	1102	838	244	147	176	144	101	101	86	82
+1986	1067	802	240	144	170	139	95	95	84	79
+1984	1037	767	236	142	163	133	90	89	81	76
+1982	1009	733	232	140	155	127	86	83	77	73
+1980	981	697	227	138	147	121	81	78	73	70
+</textarea>
+<b id="boldStuff" style="color:transparent;">SVG</b>
+</body>
+</html>
