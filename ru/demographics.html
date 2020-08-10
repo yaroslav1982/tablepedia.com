@@ -1,10 +1,141 @@
-<html>
+
+
+<!DOCTYPE HTML>
+
 <head>
-<title>Visualization of user data #tablepedia #csv2svg #covidplot #virusplot tablepedia.com</title>
+<meta charset="windows-1251">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<title>tablepedia.com #csv2svg #covidplot #virusplot #tablepedia</title>
+	<link href="favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon">
+
+
+<link rel="stylesheet" href="theme.css">
+
+
+
 </head>
+
 <body onload="PLOTbuild();">
-   See also Visualization of COVID-19 data: <a href="http://tablepedia.com/en/covid-19.html">tablepedia.com/en/covid-19.html</a> Github: <a href="https://github.com/yaroslav1982/tablepedia.com">https://github.com/yaroslav1982/tablepedia.com</a>
-   <h1>Top 10 countries by population since 1980 (single HTML page with JS in 8 KB)</h1>
+   
+<div class="uk-grid tm-wrapper" data-uk-grid-match="">
+
+
+    
+    <div class="uk-width-1-1 tm-content-wrapper tm-footer-true">
+    
+<table align="center">
+<tr><td>            <div class="tm-toolbar uk-flex uk-flex-middle uk-flex-space-between uk-hidden-small uk-hidden-medium">
+
+<div class = "tablepedia">
+<a href="http://tablepedia.com/index_ru.html">
+ <img src = "tablepedia.png">
+ <p>tablepedia.com</p>
+</a>
+</div>
+
+
+<td>
+<a  class="tooltip" href="http://tablepedia.com/ru/covid-19.html">
+<img src="1.png" alt="COVID-19">
+<br>
+COVID-19<span>Топ-20 стран по заболеваемости COVID-19 с 31.12.2019 (тыс. чел.)</span>
+</a>
+</td>
+
+<td>
+<a class="tooltip" href="http://tablepedia.com/ru/metal_prices-rub.html">
+<img src="2.png" alt="AU/$">
+<br>
+AU/$<span>Цены на золото, серебро, платину и палладий с 1999 года (в рублях за грамм и долларах за унцию),
+а также курсы доллара и евро по курсу ЦБ РФ</span>
+</a>
+</td>
+
+<td>
+<a class="tooltip" href="http://tablepedia.com/ru/demographics.html">
+<img src="3.png" alt="Demographics">
+<br>
+Demographics<span>10 стран с самым высоким населением с 1980 года (HTML страница с кодом JavaScript, 9 кБ)</span>
+</a>
+</td>
+
+<td>
+<a class="tooltip" href="http://tablepedia.com/junior2.html">
+<img src="4.png" alt="Graphing calculator">
+<br>
+Graphing calculator
+</a>
+</td>
+
+<td>
+<a href="https://github.com/yaroslav1982/tablepedia.com">
+<img src="github.png" alt="PNG">
+<br>
+Download this site <br> from GitHub(ZIP)
+</a>
+</td>
+
+<td>
+<h3><span><a href="http://tablepedia.com">EN</a></span> | RU </h3>
+</td>
+                            <div><td>
+
+</td></div>
+            
+            
+        </div>
+    </td>
+</tr>
+</table>
+
+
+
+<h3>10 стран с самым высоким населением с 1980 года (HTML страница с кодом JavaScript, 9 кБ)</h3>
+
+<SELECT name="SM01" id="SM01" onchange="PLOTbuild()">
+<OPTION SELECTED VALUE="0">Выберите страну</OPTION>
+<OPTION VALUE="1">Китай</OPTION>
+<OPTION VALUE="2">Индия</OPTION>
+<OPTION VALUE="3">США</OPTION>
+<OPTION VALUE="4">Россия</OPTION>
+<OPTION VALUE="5">Индонезия</OPTION>
+<OPTION VALUE="6">Бразилия</OPTION>
+<OPTION VALUE="7">Бангладеш</OPTION>
+<OPTION VALUE="8">Пакистан</OPTION>
+<OPTION VALUE="9">Нигерия</OPTION>
+<OPTION VALUE="10">Мексика</OPTION>
+</SELECT>
+
+
+<br>
+<textarea class="input_type" id="target" name="target" cols="28" rows="28"  wrap="off">
+Год Китай	Индия	Бразилия	Россия	Индонезия	Бразилия	Бангладеш	Пакистан	Нигерия	Мексика
+2020	1412	1375	331	147	273	212	164	210	205	128
+2018	1397	1351	327	147	266	210	161	201	196	124
+2016	1379	1324	323	147	261	208	159	193	186	122
+2014	1364	1294	319	146	254	205	157	186	178	120
+2012	1351	1263	314	143	248	201	155	179	168	118
+2010	1338	1231	309	143	242	197	152	171	159	116
+2008	1325	1197	304	143	236	193	149	163	151	114
+2006	1311	1162	299	143	230	189	145	157	143	112
+2004	1296	1126	293	144	224	185	140	150	136	109
+2002	1280	1089	288	145	218	181	135	143	129	106
+2000	1263	1054	282	147	212	175	129	137	122	103
+1998	1242	1018	276	148	206	171	125	132	115	100
+1996	1218	983	269	148	200	165	120	126	109	97
+1994	1192	946	263	148	194	159	117	120	101	93
+1992	1165	910	257	149	188	155	112	114	93	89
+1990	1135	874	250	148	182	150	106	108	88	86
+1988	1102	838	244	147	176	144	101	101	86	82
+1986	1067	802	240	144	170	139	95	95	84	79
+1984	1037	767	236	142	163	133	90	89	81	76
+1982	1009	733	232	140	155	127	86	83	77	73
+1980	981	697	227	138	147	121	81	78	73	70
+</textarea>
+<b id="boldStuff" style="color:transparent;">SVG</b>
+
+
 <script>
 	var h1 = 20; var h2 = 580; var v1 = 360; var v2 = 10; 
 	var OXaxis=h1; var OYaxis=v1;
@@ -155,46 +286,5 @@ rr=rr+y2;
 
 </script>
 
-<SELECT name="SM01" id="SM01" onchange="PLOTbuild()">
-<OPTION SELECTED VALUE="0">SELECT COUNTRY</OPTION>
-<OPTION VALUE="1">China</OPTION>
-<OPTION VALUE="2">India</OPTION>
-<OPTION VALUE="3">USA</OPTION>
-<OPTION VALUE="4">Russia</OPTION>
-<OPTION VALUE="5">Indonesia</OPTION>
-<OPTION VALUE="6">Brazil</OPTION>
-<OPTION VALUE="7">Bangladesh</OPTION>
-<OPTION VALUE="8">Pakistan</OPTION>
-<OPTION VALUE="9">Nigeria</OPTION>
-<OPTION VALUE="10">Mexico</OPTION>
-</SELECT>
-
-
-<br>
-<textarea class="input_type" id="target" name="target" cols="28" rows="28"  wrap="off">
-Year China	India	USA	Russia	Indonesia	Brazil	Bangladesh	Pakistan	Nigeria	Mexico
-2020	1412	1375	331	147	273	212	164	210	205	128
-2018	1397	1351	327	147	266	210	161	201	196	124
-2016	1379	1324	323	147	261	208	159	193	186	122
-2014	1364	1294	319	146	254	205	157	186	178	120
-2012	1351	1263	314	143	248	201	155	179	168	118
-2010	1338	1231	309	143	242	197	152	171	159	116
-2008	1325	1197	304	143	236	193	149	163	151	114
-2006	1311	1162	299	143	230	189	145	157	143	112
-2004	1296	1126	293	144	224	185	140	150	136	109
-2002	1280	1089	288	145	218	181	135	143	129	106
-2000	1263	1054	282	147	212	175	129	137	122	103
-1998	1242	1018	276	148	206	171	125	132	115	100
-1996	1218	983	269	148	200	165	120	126	109	97
-1994	1192	946	263	148	194	159	117	120	101	93
-1992	1165	910	257	149	188	155	112	114	93	89
-1990	1135	874	250	148	182	150	106	108	88	86
-1988	1102	838	244	147	176	144	101	101	86	82
-1986	1067	802	240	144	170	139	95	95	84	79
-1984	1037	767	236	142	163	133	90	89	81	76
-1982	1009	733	232	140	155	127	86	83	77	73
-1980	981	697	227	138	147	121	81	78	73	70
-</textarea>
-<b id="boldStuff" style="color:transparent;">SVG</b>
 </body>
 </html>
