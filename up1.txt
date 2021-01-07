@@ -1,0 +1,5 @@
+document.write('<img src = "tablepedia.png"><a href="http://tablepedia.com/index_ru.html">TablePedia</a>');
+
+document.write('<a href="https://github.com/yaroslav1982/tablepedia.com"><img src="github.png" alt="PNG">Download this site from GitHub(ZIP)</a>');
+
+document.write('<span><a href="http://tablepedia.com"> <img src="EN.png" alt="PNG"> EN</a></span> | <img src="RU.png" alt="PNG"> RU');

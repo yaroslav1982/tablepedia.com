@@ -1,0 +1,7 @@
+document.write('<a  class="tooltip" href="covid-19.html"><img src="1.png" alt="COVID-19">COVID-19<span>Топ-20 стран по заболеваемости COVID-19 с 31.12.2019 (тыс. чел.)</span></a>');
+
+document.write('<a class="tooltip" href="metal_prices-rub.html"><img src="2.png" alt="AU/$">AU/$<span>Цены на золото, серебро, платину и палладий с 1999 года (в рублях за грамм и долларах за унцию), а также курсы доллара и евро по курсу ЦБ РФ</span></a>');
+
+document.write('<a class="tooltip" href="demographics.html"><img src="3.png" alt="Demographics"> Demographics<span>10 стран с самым высоким населением с 1980 года (HTML страница с кодом JavaScript, 9 кБ)</span></a>');
+
+document.write('<a class="tooltip" href="junior2.html"><img src="4.png" alt="Graphing calculator">Graphing calculator</a>');
