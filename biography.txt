@@ -1,0 +1,15 @@
+document.write('<a  class="tooltip" href="Pecheniy.html"><img src="pecheniy.png" alt="Pecheniy">В.П. Печёный<span>Биография Печёного</span></a>');
+
+document.write('<a class="tooltip" href="Dudov.html"><img src="dudov.png" alt="Dudov">Н.Н. Дудов<span>Биография Дудова</span></a>');
+
+document.write('<a  class="tooltip" href="Stalin.html"><img src="stalin.png" alt="Stalin">И.В. Сталин<span>Биография Сталина</span></a>');
+
+document.write('<a class="tooltip" href="Lenin.html"><img src="lenin.png" alt="Lenin">В.И. Ленин<span>Биография Ленина</span></a>');
+
+document.write('<a class="tooltip" href="Lermontov.html"><img src="lermontov.png" alt="Lermontov"> М.Ю. Лермонтов<span>Биография Лермонтова</span></a>');
+
+document.write('<a class="tooltip" href="Pushkin.html"><img src="pushkin.png" alt="Pushkin">А.С. Пушкин<span>Биография Пушкина</span></a>');
+
+document.write('<a class="tooltip" href="Kymytval.html"><img src="kymytval.png" alt="Kymytval"> А.А. Кымытваль<span>Биография Кымытваль</span></a>');
+
+document.write('<a class="tooltip" href="Rytkheu.html"><img src="rytheu.png" alt="Rytkheu">Ю.С. Рытхэу<span>Биография Рытхэу</span></a>');
