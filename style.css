@@ -17,7 +17,7 @@ html {
      border-radius: 10px;
 }
 body {
-	font-size:11px;
+	font-size:14px;
 	line-height:22px;
 	font-family:Georgia, serif;
 	color:#4c4c4c;
@@ -219,7 +219,7 @@ a:hover {
 a.tooltip span {
 	display			: none; 
 	padding			: 2px 3px; 
-	margin-left		: 8px; 
+	margin-left		: -70px; 
 	width			: 130px;
 }
 a.tooltip:hover span {

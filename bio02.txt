@@ -1,0 +1,20 @@
+document.write('<a  class="tooltip" href="Przhevalsky.html"><img src="przhevalsky.png" alt="Przhevalsky"><span>Н.М. Пржевальский</span></a>');
+
+document.write('<a class="tooltip" href="Tyan-Shansky.html"><img src="tyan-shansky.png" alt="Tyan-Shansky"><span>П.П. Семёнов-Тян-Шанский</span></a>');
+
+document.write('<a class="tooltip" href="Lenin.html"><img src="lenin.png" alt="Lenin"><span>В.И. Ленин</span></a>');
+
+document.write('<a  class="tooltip" href="Stalin.html"><img src="stalin.png" alt="Stalin"><span>И.В. Сталин</span></a>');
+
+document.write('<a class="tooltip" href="Pushkin.html"><img src="pushkin.png" alt="Pushkin"><span>А.С. Пушкин</span></a>');
+
+document.write('<a class="tooltip" href="Lermontov.html"><img src="lermontov.png" alt="Lermontov"><span>М.Ю. Лермонтов</span></a>');
+
+document.write('<a class="tooltip" href="Dostoevsky.html"><img src="dostoevsky.png" alt="Dostoevsky"><span>Ф.М. Достоевский</span></a>');
+
+document.write('<a class="tooltip" href="Tolstoy.html"><img src="tolstoy.png" alt="Tolstoy"><span>Л.Н. Толстой</span></a>');
+
+document.write('<br><a class="tooltip" href="Grachevsky.html"><img src="grachevsky.png" alt="Grachevsky"><span>Б.Ю. Грачевский</span></a>');
+
+document.write('<a class="tooltip" href="Lanovoy.html"><img src="lanovoy.png" alt="Lanovoy"><span>В.С. Лановой</span></a>');
+

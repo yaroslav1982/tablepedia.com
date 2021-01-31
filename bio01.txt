@@ -1,0 +1,15 @@
+document.write('<a  class="tooltip" href="Gogoleva.html"><img src="gogoleva.png" alt="Gogoleva"><span>В.Е. Гоголева</span></a>');
+
+document.write('<a class="tooltip" href="Vinogradov.html"><img src="vinogradov.png" alt="Vinogradov"><span>П.В. Виноградов</span></a>');
+
+document.write('<a  class="tooltip" href="Bondar.html"><img src="bondar.png" alt="Bondar"><span>О.А. Бондарь</span></a>');
+
+document.write('<a class="tooltip" href="Basansky.html"><img src="basansky.png" alt="Basansky"><span>А.А. Басанский</span></a>');
+
+document.write('<a class="tooltip" href="Dudov.html"><img src="dudov.png" alt="Dudov"><span>Н.Н. Дудов</span></a>');
+
+document.write('<a  class="tooltip" href="Pecheniy.html"><img src="pecheniy.png" alt="Pecheniy"><span>В.П. Печёный</span></a>');
+
+document.write('<a class="tooltip" href="Rytkheu.html"><img src="rytheu.png" alt="Rytkheu"><span>Ю.С. Рытхэу</span></a>');
+
+document.write('<a class="tooltip" href="Kymytval.html"><img src="kymytval.png" alt="Kymytval"><span>А.А. Кымытваль</span></a>');
