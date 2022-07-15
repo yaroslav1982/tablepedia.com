@@ -1,7 +1,7 @@
-document.write('<a  class="tooltip" href="covid-19.html"><img src="1.png" alt="COVID-19">COVID-19<span>Топ-20 стран по заболеваемости COVID-19 с 31.12.2019 (тыс. чел.)</span></a>');
+document.write('<a  class="tooltip" href="covid-19.html"><img src="1.png" alt="COVID-19">COVID-19<span>РўРѕРї-20 СЃС‚СЂР°РЅ РїРѕ Р·Р°Р±РѕР»РµРІР°РµРјРѕСЃС‚Рё COVID-19 СЃ 31.12.2019 (С‚С‹СЃ. С‡РµР».)</span></a>');
 
-document.write('<a class="tooltip" href="metal_prices-rub.html"><img src="2.png" alt="AU/$">AU/$<span>Цены на золото, серебро, платину и палладий с 1999 года (в рублях за грамм и долларах за унцию), а также курсы доллара и евро по курсу ЦБ РФ</span></a>');
+document.write('<a class="tooltip" href="metal_prices-rub.html"><img src="2.png" alt="AU/$">AU/$<span>Р¦РµРЅС‹ РЅР° Р·РѕР»РѕС‚Рѕ, СЃРµСЂРµР±СЂРѕ, РїР»Р°С‚РёРЅСѓ Рё РїР°Р»Р»Р°РґРёР№ СЃ 1999 РіРѕРґР° (РІ СЂСѓР±Р»СЏС… Р·Р° РіСЂР°РјРј Рё РґРѕР»Р»Р°СЂР°С… Р·Р° СѓРЅС†РёСЋ), Р° С‚Р°РєР¶Рµ РєСѓСЂСЃС‹ РґРѕР»Р»Р°СЂР° Рё РµРІСЂРѕ РїРѕ РєСѓСЂСЃСѓ Р¦Р‘ Р Р¤</span></a>');
 
-document.write('<a class="tooltip" href="demographics.html"><img src="3.png" alt="Demographics"> Demographics<span>10 стран с самым высоким населением с 1980 года (HTML страница с кодом JavaScript, 9 кБ)</span></a>');
+document.write('<a class="tooltip" href="demographics.html"><img src="3.png" alt="Demographics">Р”РёРЅР°РјРёРєР° РЅР°СЃРµР»РµРЅРёСЏ СЃС‚СЂР°РЅ РјРёСЂР°</span></a>');
 
-document.write('<a class="tooltip" href="junior2.html"><img src="4.png" alt="Graphing calculator">Graphing calculator</a>');
+document.write('<a class="tooltip" href="gcalc.html"><img src="4.png" alt="Graphing calculator">РџРѕСЃС‚СЂРѕРµРЅРёРµ РіСЂР°С„РёРєРѕРІ С„СѓРЅРєС†РёР№</a>');

@@ -1,0 +1,16 @@
+document.write('<a  class="tooltip" href="https://zen.yandex.ru/media/id/6238757a33088457ef113ea0/rasskaz-o-tom-kak-alkogolik-pomeshal-synu-postupit-v-vuz-62b312294719fe3d1a0b6c91"><img src="http://tablepedia.com/alko2022.jpg" alt="alko2022"><span>Рассказ о том, как алкоголик помешал сыну поступить в вуз</span></a>');
+document.write('<br><a  class="tooltip" href="http://nanopedia.site"><img src="http://tablepedia.com/digests-1-nanopedia.png" alt="nanopedia.site"><span>Школьный дайджест</span></a>');
+
+document.write('<a  class="tooltip" href="http://ipedia.site"><img src="http://tablepedia.com/digests-2-ipedia.png" alt="ipedia.site"><span>Рабочий дайджест</span></a>');
+document.write('<a  class="tooltip" href="http://www.quatrecoin.com"><img src="http://tablepedia.com/digests-3-quatrecoin.png" alt="www.quatrecoin.com"><span>Финансовый дайджест</span></a>');
+document.write('<a  class="tooltip" href="http://citypedia.site"><img src="http://tablepedia.com/digests-4-citypedia.png" alt="citypedia.site"><span>Городской дайджест</span></a>');
+
+
+document.write('<br><a  class="tooltip" href="https://zen.yandex.ru/media/id/6238757a33088457ef113ea0/spisok-serii-eralasha-so-ssylkami-1970e-gody-62c9743d80b31a6a990091b5"><img src="yeralash-1970-scale.jpg" alt="Список серий «Ералаша» со ссылками (1970-е годы)" margin="7px 0 7px 7px"><span>Список серий «Ералаша» со ссылками (1970-е годы)</span></a>');
+
+document.write('<a  class="tooltip" href="https://zen.yandex.ru/media/id/6238757a33088457ef113ea0/spisok-serii-eralasha-so-ssylkami-1980e-gody-62caa20667128a3c1fd533c7"><img src="yeralash-1980-scale.jpg" alt="Список серий «Ералаша» со ссылками (1980-е годы)" margin="7px 0 7px 7px"><span>Список серий «Ералаша» со ссылками (1980-е годы)</span></a>');
+
+document.write('<a  class="tooltip" href="https://zen.yandex.ru/media/id/6238757a33088457ef113ea0/spisok-serii-eralasha-so-ssylkami-1990e-gody-62cc284effb37b3504a89e3e"><img src="yeralash-1990-scale.jpg" alt="Список серий «Ералаша» со ссылками (1990-е годы)" margin="7px 0 7px 7px"><span>Список серий «Ералаша» со ссылками (1990-е годы)</span></a>');
+
+document.write('<a  class="tooltip" href="https://zen.yandex.ru/media/id/6238757a33088457ef113ea0/spisok-serii-eralasha-so-ssylkami-2000e-gody-62cc29215c788d19ff975ac1"><img src="yeralash-2000-scale.jpg" alt="Список серий «Ералаша» со ссылками (2000-е годы)" margin="7px 0 7px 7px"><span>Список серий «Ералаша» со ссылками (2000-е годы)</span></a>');
+

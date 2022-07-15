@@ -1,0 +1,7 @@
+document.write('<img src = "tablepedia.png"><a href="http://tablepedia.com/">TablePedia</a>');
+
+document.write('<a class="tooltip" href="metal_prices-rub.html"><img src="2.png" alt="AU/$">AU/$<span>Цены на золото, серебро, платину и палладий с 1999 года (в рублях за грамм и долларах за унцию), а также курсы доллара и евро по курсу ЦБ РФ.</span></a>');
+
+document.write('<a class="tooltip" href="gcalc.html"><img src="4.png" alt="Graphing calculator">Построение графиков функций</a>');
+
+document.write('<a class="tooltip" href="demographics.html"><img src="4.png" alt="Demographics">Динамика населения стран мира</a>');
