@@ -1,3 +1,4 @@
+п»ї
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
@@ -59,15 +60,15 @@ A:active { color: #999999; }
 http://tablepedia.com
 </a>
 </td>
-<td><br>
+<td>
 
-<h3 style="background-color: rgb(253, 215, 228); ">
-<a href="en/covid-19.html">COVID-19 incidence (number of CASES and DEATHS) since 31.12.2019</a>
+<h3><a href="http://tablepedia.com/en/metal_prices.html">http://tablepedia.com/en/metal_prices.html</a>
 </h3>
+
 
 <h3>
 <span>
-<a href="metal_prices-rub.html">Prices of gold, silver, platinum and palladium since 1999 (in rubles per gram and dollars per ounce) and dollar and euro rates (Central Bank of Russia)</a>
+<a href="metal_prices-rub.html">Prices of gold, silver, platinum and palladium since 1999 (RUB per gram and USD per ounce) and dollar and euro rates (Central Bank of Russia)</a>
 <br>
 <a href="demographics.html">The population of China, India, USA, Russia, etc. since 1980</a>
 </span>
@@ -120,7 +121,7 @@ function PLOTbuild()
 		}
 		rangesOfColumnMinAndMax = rangesOfColumnMinAndMax + minC.toString()+";"+maxC.toString() + ";;   ";
 	}
-	var widthOfVisualization = '700'; var heightOfvisualization = '420'; //ширина и высота виртуального листа бумаги, на котором рисуются графики
+	var widthOfVisualization = '700'; var heightOfvisualization = '420'; //С€РёСЂРёРЅР° Рё РІС‹СЃРѕС‚Р° РІРёСЂС‚СѓР°Р»СЊРЅРѕРіРѕ Р»РёСЃС‚Р° Р±СѓРјР°РіРё, РЅР° РєРѕС‚РѕСЂРѕРј СЂРёСЃСѓСЋС‚СЃСЏ РіСЂР°С„РёРєРё
 	var ab = document.getElementById('temptext').value; //tableOfPlotParameters
 	var STRINGelements = ab.split("\n");
 	var fourstr=['','','','',''];
@@ -142,7 +143,7 @@ function PLOTbuild()
 function SVGgenerate(xcol, ycol, xA4, yA4, yLeft, xDown, xColor, Xis1, Yis1)
 {
 
-	var TEXTscaleSTRINGelements = ['0.1', '4'];  // Строка из таблицы, разделённая на элементы 
+	var TEXTscaleSTRINGelements = ['0.1', '4'];  // РЎС‚СЂРѕРєР° РёР· С‚Р°Р±Р»РёС†С‹, СЂР°Р·РґРµР»С‘РЅРЅР°СЏ РЅР° СЌР»РµРјРµРЅС‚С‹ 
 	var colNames=["","Gold, USD/OZ", "Silver, USD/OZ", "Platinum, USD/OZ", "Palladium, USD/OZ", "","Gold/Silver", "Gold/Platinum", "Gold/Palladium", "Platinum/Silver", "Palladium/Silver"];
 	var x1 = parseFloat(xcol);
 	var y1 = parseFloat(ycol);
@@ -157,7 +158,7 @@ var maxX=parseFloat(mmOX[1]);
 var mmOY=a0Y.split(";"); 
 var minY=parseFloat(mmOY[0]);
 var maxY=parseFloat(mmOY[1]);
-	// fitRange превращает диапазон 1951;1999 в 1950;2000, потому что 25 шагов по 2 года
+	// fitRange РїСЂРµРІСЂР°С‰Р°РµС‚ РґРёР°РїР°Р·РѕРЅ 1951;1999 РІ 1950;2000, РїРѕС‚РѕРјСѓ С‡С‚Рѕ 25 С€Р°РіРѕРІ РїРѕ 2 РіРѕРґР°
 	ab=fitRange1(minX, maxX, 20);
 	var bc = NUMBERseries(ab) + ';';
 	var de = bc.split(';;'); 
@@ -309,11 +310,11 @@ if (Yis1 == '1')
 	return sSVG;
 }
 
-// Построение шкалы от точки A до точки B на листе бумаги,
-// при этом на ней делается разметка от x1 до x2 или от y1 до y2
+// РџРѕСЃС‚СЂРѕРµРЅРёРµ С€РєР°Р»С‹ РѕС‚ С‚РѕС‡РєРё A РґРѕ С‚РѕС‡РєРё B РЅР° Р»РёСЃС‚Рµ Р±СѓРјР°РіРё,
+// РїСЂРё СЌС‚РѕРј РЅР° РЅРµР№ РґРµР»Р°РµС‚СЃСЏ СЂР°Р·РјРµС‚РєР° РѕС‚ x1 РґРѕ x2 РёР»Рё РѕС‚ y1 РґРѕ y2
 function TEXTscale(x1xN, min4max4)
 {
-	// Рекомендуется описание переменных
+	// Р РµРєРѕРјРµРЅРґСѓРµС‚СЃСЏ РѕРїРёСЃР°РЅРёРµ РїРµСЂРµРјРµРЅРЅС‹С…
 	var pieces = x1xN.split(";"); //partsOfX1XnRange
 	var pieces2 = min4max4.split(";"); //partsOfXA41XA4nRange
 	var qx = NUMBERchars(x1xN, ";");
@@ -368,7 +369,7 @@ if (XYf == 1 && n >= 0) xSt = 0.5;
 			sm3 = sm3 + "\t" + sm4 + "\n";
 		}
 	}
-	coo = parseFloat(pieces2[1]);// Предохранитель от 599.99999999999999999
+	coo = parseFloat(pieces2[1]);// РџСЂРµРґРѕС…СЂР°РЅРёС‚РµР»СЊ РѕС‚ 599.99999999999999999
 	coo = NUMBERround(coo, 4);
 	if (coo == 0)
 		coo = 0.0001;
@@ -376,7 +377,7 @@ if (XYf == 1 && n >= 0) xSt = 0.5;
 	return sm3;
 }
 
-// Превращает пару значений из столбцов таблицы в точку на листе бумаги xA4;yA4 
+// РџСЂРµРІСЂР°С‰Р°РµС‚ РїР°СЂСѓ Р·РЅР°С‡РµРЅРёР№ РёР· СЃС‚РѕР»Р±С†РѕРІ С‚Р°Р±Р»РёС†С‹ РІ С‚РѕС‡РєСѓ РЅР° Р»РёСЃС‚Рµ Р±СѓРјР°РіРё xA4;yA4 
 function convert2ValuesTo2Coordinates(xy1, x1, y1, xa4, ya4)
 {
 	var srav = xy1.split(";");
@@ -386,13 +387,13 @@ function convert2ValuesTo2Coordinates(xy1, x1, y1, xa4, ya4)
 	return gett;
 }
 
-// Делает то же самое, что convert2ValuesTo2Coordinates, только либо для одного значения x, либо для одного значения y
+// Р”РµР»Р°РµС‚ С‚Рѕ Р¶Рµ СЃР°РјРѕРµ, С‡С‚Рѕ convert2ValuesTo2Coordinates, С‚РѕР»СЊРєРѕ Р»РёР±Рѕ РґР»СЏ РѕРґРЅРѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ x, Р»РёР±Рѕ РґР»СЏ РѕРґРЅРѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ y
 function convert1ValueTo1Coordinate(VECTOR1, VECTOR2, xVECTOR1)
 {
 	var lastChar1 = VECTOR1.substr(VECTOR1.length - 1); // => "1"
 	var lastChar2 = VECTOR2.substr(VECTOR2.length - 1); // => "1"
-	//1;2;3;4;5 - начальная ось OX ($VECTOR1)
-	//10;20;30;40;50 - конечный интервал на листе ($VECTOR2)
+	//1;2;3;4;5 - РЅР°С‡Р°Р»СЊРЅР°СЏ РѕСЃСЊ OX ($VECTOR1)
+	//10;20;30;40;50 - РєРѕРЅРµС‡РЅС‹Р№ РёРЅС‚РµСЂРІР°Р» РЅР° Р»РёСЃС‚Рµ ($VECTOR2)
 	var pieces = VECTOR1.split(";"); 
 	var pieces2 = VECTOR2.split(";");
 	var xleft = parseFloat(pieces[0]);
@@ -424,14 +425,14 @@ function convert1ValueTo1Coordinate(VECTOR1, VECTOR2, xVECTOR1)
 	return smart2;
 }
 
-// NumberPropo обслуживает convert1ValueTo1Coordinate, находит пропорцию
+// NumberPropo РѕР±СЃР»СѓР¶РёРІР°РµС‚ convert1ValueTo1Coordinate, РЅР°С…РѕРґРёС‚ РїСЂРѕРїРѕСЂС†РёСЋ
 function NUMBERpropo(x1, x2, xAmong, min4, max4)
 {
 	var part = (xAmong - x1) / (x2 - x1); 
 	return (max4 - min4) * part + min4; 
 }
 
-//находит количество ; в строке
+//РЅР°С…РѕРґРёС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ ; РІ СЃС‚СЂРѕРєРµ
 function NUMBERchars(qString, charInside)
 {
 	var j = 0; var rest = "";
@@ -444,7 +445,7 @@ function NUMBERchars(qString, charInside)
 	return j;
 }
 
-//округляет число
+//РѕРєСЂСѓРіР»СЏРµС‚ С‡РёСЃР»Рѕ
 function NUMBERround(x, n)
 {
 	if (isNaN(x) || isNaN(n)) return 0;
@@ -452,7 +453,7 @@ function NUMBERround(x, n)
 }
 
 
-//строит числа в диапазоне о n1 до n2; 
+//СЃС‚СЂРѕРёС‚ С‡РёСЃР»Р° РІ РґРёР°РїР°Р·РѕРЅРµ Рѕ n1 РґРѕ n2; 
 function NUMBERseries(fts)
 {
 	var FromToStep = fts.split(";");
@@ -468,7 +469,7 @@ function NUMBERseries(fts)
 	return rr;
 }
 
-// Округляет диапазон чисел
+// РћРєСЂСѓРіР»СЏРµС‚ РґРёР°РїР°Р·РѕРЅ С‡РёСЃРµР»
 function NUMBERfloat(xbig, xsmall)
 {
 	vmax = Math.floor(xbig / xsmall + 0.99) * xsmall;
@@ -484,7 +485,7 @@ function NUMBERfloat(xbig, xsmall)
 	return smax;
 }
 
-// Строит числа в диапазоне от n1 до n2 с шагом, кратным 1/2/5
+// РЎС‚СЂРѕРёС‚ С‡РёСЃР»Р° РІ РґРёР°РїР°Р·РѕРЅРµ РѕС‚ n1 РґРѕ n2 СЃ С€Р°РіРѕРј, РєСЂР°С‚РЅС‹Рј 1/2/5
 function fitRange1(a, b, nLines)
 {
 	a = Math.round(a * 100000000000000) / 100000000000000;
@@ -526,7 +527,7 @@ function fitRange1(a, b, nLines)
 }
 
 
-// Настройки графиков зависят от нажатых чекбоксов
+// РќР°СЃС‚СЂРѕР№РєРё РіСЂР°С„РёРєРѕРІ Р·Р°РІРёСЃСЏС‚ РѕС‚ РЅР°Р¶Р°С‚С‹С… С‡РµРєР±РѕРєСЃРѕРІ
 function myFunction()
 {
 var ttcc=[document.getElementById("myCh1").checked, document.getElementById("myCh2").checked, document.getElementById("myCh3").checked, document.getElementById("myCh4").checked, document.getElementById("myCh5").checked, document.getElementById("myCh6").checked, document.getElementById("myCh7").checked, document.getElementById("myCh8").checked, document.getElementById("myCh9").checked];
@@ -553,7 +554,7 @@ function destroyClickedElement(event)
 {
 	document.body.removeChild(event.target);
 }
-// Сохранить svg
+// РЎРѕС…СЂР°РЅРёС‚СЊ svg
 function saveTextAsFile()
 {
 	var textToSave = document.getElementById("inputTextToSave").value;
@@ -569,7 +570,7 @@ function saveTextAsFile()
 	document.body.appendChild(downloadLink);
 	downloadLink.click();
 }
-// Сохранить таблицу
+// РЎРѕС…СЂР°РЅРёС‚СЊ С‚Р°Р±Р»РёС†Сѓ
 function saveTABLEAsFile()
 {
 	var textToSave = document.getElementById("target").value;
@@ -626,8 +627,13 @@ Ratio: <input type="checkbox" id="myCh5" onclick="myFunction()"> Gold/Silver
 5 3 20;600 400;210 0 0 black 1 1
 5 4 20;600 400;210 1 1 red 0 1
 </textarea>
-<br><textarea class="input_type" id="target" name="target" cols="120" rows="12">
+<br><textarea class="input_type" id="target" name="target" cols="90" rows="12">
 Date Gold Silver Platinum Palladium Gold/Silver Gold/Platinum Gold/Palladium Platinum/Silver Palladium/Silver
+22.09.2020	1931.00	26.36	925.00	2347	2020.728	73.25	2.09	0.82	35.09	89.04
+10.09.2020	1928.00	26.53	911.00	2256	2020.696	72.67	2.12	0.85	34.34	85.04
+01.09.2020	1957.00	27.35	930.00	2176	2020.668	71.55	2.10	0.90	34.00	79.56
+20.08.2020	1993.00	27.44	952.00	2193	2020.638	72.63	2.09	0.91	34.69	79.92
+11.08.2020	2030.00	28.27	972.00	2190	2020.61	71.81	2.09	0.93	34.38	77.47
 01.08.2020	1974	24.07	908	2094	2020.586	82.04	2.17	0.94	37.72	87.00
 21.07.2020	1810	19.44	842	2027	2020.556	93.12	2.15	0.89	43.31	104.26
 10.07.2020	1812	18.83	858	1955	2020.528	96.23	2.11	0.93	45.56	103.80
